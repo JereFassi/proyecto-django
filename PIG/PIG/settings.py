@@ -10,20 +10,26 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import environ
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+env = environ.Env()
+environ.Env.read_env()
+
+DEBUG = env('DEBUG')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-04l+qjox(6&djv-msj2!u(uo3v#mxypr%_$3sm%o*wo!rb7!b$'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
 ALLOWED_HOSTS = []
 
