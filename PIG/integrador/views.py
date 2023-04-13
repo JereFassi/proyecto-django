@@ -5,8 +5,12 @@ from django.http import HttpResponse
 
 def index(request):
 
-    context = {
-        "hoy": datetime.now
-    }
+    context = {}
 
     return render(request,'integrador/index.html', context)
+
+def forms(request):
+    
+    context = {}
+
+    return render(request,'integrador/forms.html', context)
