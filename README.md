@@ -8,8 +8,9 @@ Instalación del Proyecto:
     2- Activar entorno virtual
         $ source venv/Scripts/Activate
     3- Instalar requerimientos
-        $ pip install requirements.txt
+        $ pip install -r requirements.txt
 
 Ejecutar servidor local:
 
+    $ cd PIG
     $ python manage.py runserver
