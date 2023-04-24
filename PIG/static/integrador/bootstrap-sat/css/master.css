@@ -233,7 +233,8 @@ body {
 
 .card .content .stats {
     display: inline-block;
-    color: #a9a9a9;
+    color: #32b4af;
+    font-size: 0.9em;
 }
 
 /*------------------------------------------------------------------
