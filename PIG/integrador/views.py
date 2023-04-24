@@ -2,6 +2,9 @@
 from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.contrib import messages
+
+from integrador.forms import ClienteForm
 
 def index(request):
 
@@ -14,6 +17,28 @@ def dashboard(request):
     context = {}
 
     return render(request,'integrador/dashboard.html', context)
+
+def cliente(request):
+    
+    context = {}
+    mensaje = None
+
+    if(request.method=='POST'):
+        cliente_form = ClienteForm(request.POST)
+        if(cliente_form.is_valid()):  
+            messages.success(request,'Hemos recibido tus datos')          
+            # acción para tomar los datos del formulario
+        else:
+            messages.warning(request,'Por favor revisa los errores en el formulario')
+    else:
+        cliente_form = ClienteForm()
+    
+    context.update({
+        'cliente_form': cliente_form,
+        'mensaje': mensaje
+    })
+
+    return render(request,'integrador/form_cliente.html', context)
 
 def forms(request):
     
