@@ -11,6 +11,13 @@
         <div class="page-title">
             <h3>Alta de Cliente</h3>
         </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <h4{% if message.tags %} class="{{ message.tags }}"{% endif %}><span class="badge bg-danger">{{ message }}</span></h4>
+            {% endfor %}
+        {% endif %}
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">

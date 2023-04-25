@@ -12,12 +12,6 @@ def index(request):
 
     return render(request,'integrador/index.html', context)
 
-def dashboard(request):
-    
-    context = {}
-
-    return render(request,'integrador/dashboard.html', context)
-
 def cliente(request):
     
     context = {}
@@ -26,7 +20,7 @@ def cliente(request):
     if(request.method=='POST'):
         cliente_form = ClienteForm(request.POST)
         if(cliente_form.is_valid()):  
-            messages.success(request,'Hemos recibido tus datos')          
+            messages.success(request,'Hemos recibido tus datos correctamente')          
             # acción para tomar los datos del formulario
         else:
             messages.warning(request,'Por favor revisa los errores en el formulario')
@@ -39,6 +33,12 @@ def cliente(request):
     })
 
     return render(request,'integrador/form_cliente.html', context)
+
+def dashboard(request):
+    
+    context = {}
+
+    return render(request,'integrador/dashboard.html', context)
 
 def forms(request):
     
