@@ -14,14 +14,16 @@
 
         {% if messages %}
             {% for message in messages %}
-                <h4{% if message.tags %} class="{{ message.tags }}"{% endif %}><span class="badge bg-danger">{{ message }}</span></h4>
+                {% if message.tags %}
+                    <h4><span class="badge bg-{{ message.tags }}">{{ message }}</span></h4>
+                {% endif %}
             {% endfor %}
         {% endif %}
 
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    <h3 class="card-header"><span class="badge bg-warning">Cliente</span></h3>
+                    <h3 class="card-header"><span class="badge bg-info">Cliente</span></h3>
                     <div class="card-body">
                         <h5 class="card-title">Formulario de Alta de Cliente</h5>
                         <form novalidate class="needs-validation" accept-charset="utf-8" id="cliente_form" name="cliente_form" action="{% url 'cliente' %}" method="POST">
@@ -33,14 +35,18 @@
                                     {{ cliente_form.nombre_y_apellido }}
                                     <div class="valid-feedback">Los datos parecen corretos. Falta validación del Servidor!</div>
                                     <div class="invalid-feedback">Campo vacío o datos incorrectos.</div>
-                                    {{ cliente_form.nombre_y_apellido.errors }}
+                                    <div class="form-error">
+                                        {{ cliente_form.nombre_y_apellido.errors }}
+                                    </div>
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     {{ cliente_form.dni.label_tag }}
                                     {{ cliente_form.dni }}
                                     <div class="valid-feedback">Los datos parecen corretos. Falta validación del Servidor!</div>
                                     <div class="invalid-feedback">Campo vacío o datos incorrectos.</div>
-                                    {{ cliente_form.dni.errors }}
+                                    <div class="form-error">
+                                        {{ cliente_form.dni.errors }}
+                                    </div>
                                 </div>
                             </div>
 
@@ -50,14 +56,18 @@
                                     {{ cliente_form.email }}
                                     <div class="valid-feedback">Los datos parecen corretos. Falta validación del Servidor!</div>
                                     <div class="invalid-feedback">Campo vacío o datos incorrectos.</div>
-                                    {{ cliente_form.email.errors }}
+                                    <div class="form-error">
+                                        {{ cliente_form.email.errors }}
+                                    </div>
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     {{ cliente_form.telefono.label_tag }}
                                     {{ cliente_form.telefono }}
                                     <div class="valid-feedback">Los datos parecen corretos. Falta validación del Servidor!</div>
                                     <div class="invalid-feedback">Campo vacío o datos incorrectos.</div>
-                                    {{ cliente_form.telefono.errors }}
+                                    <div class="form-error">
+                                        {{ cliente_form.telefono.errors }}
+                                    </div>
                                 </div>
                             </div>
 

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import environ
 from pathlib import Path
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,7 +33,6 @@ SECRET_KEY = env('SECRET_KEY')
 # DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -74,19 +74,34 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'PIG.wsgi.application'
+MESSAGE_TAGS = {
+        messages.DEBUG: 'secondary',
+        messages.INFO: 'info',
+        messages.SUCCESS: 'success',
+        messages.WARNING: 'warning',
+        messages.ERROR: 'danger',
+ }
 
+WSGI_APPLICATION = 'PIG.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

@@ -283,6 +283,13 @@ body {
     background: #FAFAFA;
 }
 
+.form-error {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: var(--bs-danger-text);
+}
+
 /*------------------------------------------------------------------
 [9. Adjustments to default behaviors] 
 */
