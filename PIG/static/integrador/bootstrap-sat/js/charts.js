@@ -1,6 +1,6 @@
+var chart3 = document.getElementById("piechart");
 var chart1 = document.getElementById("linechart");
 var chart2 = document.getElementById('barchart');
-var chart3 = document.getElementById("piechart");
 var chart4 = document.getElementById("doughnutchart");
 var chart5 = document.getElementById("stackedbarchart");
 var chart6 = document.getElementById("radarchart");
@@ -9,9 +9,9 @@ var chart6 = document.getElementById("radarchart");
 var myChart1 = new Chart(chart1, {
 type: 'line',
 data: {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    labels: ['2018', '2019', '2020', '2021', '2022', '2023'],
     datasets: [{
-        data: ['1150', '1160', '1160', '1165', '1160', '1170', '1175', '1165', '1170', '1180', '1185', '1190'],
+        data: ['110000', '265000', '302000', '580000', '769000', '1050000'],
         backgroundColor: "rgba(48, 164, 255, 0.2)",
         borderColor: "rgba(48, 164, 255, 0.8)",
         fill: true,
@@ -30,7 +30,7 @@ options: {
         },
         title: {
             display: true,
-            text: 'Sales volume',
+            text: 'Clientes G3 Internet 300mb',
             position: 'left',
         },
     },

@@ -131,30 +131,48 @@
                     </div>
                 </div>
             </div>
+
             <h2>¿Por qué elegirnos?</h2>
             <p>G3 internet ofrece soluciones de Internet de alta calidad para el segmento hogar y pymes. Se trata de
                 conexiones simétricas, de excelente disponibilidad y con velocidades que van hasta 10gb.</p>
             <p>Por eso y porque nuestro servicio técnico está siempre dispuesto a atender tus consultas e inquietudes de
                 la mejor manera, nos enorgullese mostrarte que somos la empresa más elegida para el servicio de internet
                 300 mb en los hogares del AMBA (CABA y Gran Buenos Aires).</p>
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">G3 internet 300 mb clientes AMBA</div>
-                    <div class="card-body">
-                        <p class="card-title"></p>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">AMBA Evolución anual Clientes Internet 300mb</div>
+                        <div class="card-body">
+                            <p class="card-title"></p>
+                            <div class="canvas-wrapper">
+                                <canvas class="chart" id="linechart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">Año 2023 - AMBA Internet 300mb</div>
+                        <div class="card-body">
+                            <p class="card-title"></p>
+                            <div class="canvas-wrapper">
+                                <canvas class="chart" id="piechart"></canvas>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-{% endblock content %}
+    {% endblock content %}
 
-{% block script %}
+    {% block script %}
 
-<script src="{% static '/integrador/bootstrap-sat/vendor/jquery/jquery.min.js' %}"></script>
-<script src="{% static '/integrador/bootstrap-sat/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-<script src="{% static '/integrador/bootstrap-sat/js/script.js' %}"></script>
+    <script src="{% static '/integrador/bootstrap-sat/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static '/integrador/bootstrap-sat/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static '/integrador/bootstrap-sat/vendor/chartsjs/Chart.min.js' %}"></script>
+    <script src="{% static '/integrador/bootstrap-sat/js/charts.js' %}"></script>
+    <script src="{% static '/integrador/bootstrap-sat/js/script.js' %}"></script>
 
-{% endblock script %}
+    {% endblock script %}
