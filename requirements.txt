@@ -1,6 +1,16 @@
 asgiref==3.6.0
+branca==0.6.0
+certifi==2022.12.7
+charset-normalizer==3.1.0
 Django==3.2.18
 django-environ==0.10.0
+folium==0.14.0
+idna==3.4
+Jinja2==3.1.2
+MarkupSafe==2.1.2
+numpy==1.24.3
 psycopg2==2.9.6
 pytz==2023.3
+requests==2.29.0
 sqlparse==0.4.3
+urllib3==1.26.15

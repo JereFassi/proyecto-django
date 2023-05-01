@@ -4,7 +4,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib import messages
 
-from integrador.forms import ClienteForm
+from integrador.forms import *
+from integrador.communications import *
+from integrador.maps import *
 
 def index(request):
 
@@ -32,7 +34,49 @@ def cliente(request):
         'mensaje': mensaje
     })
 
-    return render(request,'integrador/form_cliente.html', context)
+    return render(request,'integrador/form-cliente.html', context)
+
+def domicilio(request):
+    
+    context = {}
+    mensaje = None
+    data = None
+    mapa_html = None
+
+    if(request.method=='POST'):
+        domicilio_form = DomicilioForm(request.POST)
+        if(domicilio_form.is_valid()):
+            messages.success(request,'Hemos recibido tus datos correctamente')
+            # acción para tomar los datos del formulario
+            domicilio_datos = {
+                # "street": f"{domicilio_form.cleaned_data['numero']} {domicilio_form.cleaned_data['calle']}",
+                "street": f"{domicilio_form.cleaned_data['calle']} {domicilio_form.cleaned_data['numero']}",
+                "city": domicilio_form.cleaned_data['ciudad'],
+                "state": domicilio_form.cleaned_data['provincia'],
+                "country": domicilio_form.cleaned_data['pais'],
+                "postalcode": domicilio_form.cleaned_data['codigo_postal'],
+            }
+            data = consulta_geodecode(domicilio_datos)
+            mapa_html = generar_mapa_html(data)
+        else:
+            messages.warning(request,'Por favor revisa los errores en el formulario')
+    else:
+        domicilio_form = DomicilioForm()
+    
+    context.update({
+        'domicilio_form': domicilio_form,
+        'mensaje': mensaje,
+        'data': data,
+        'mapa': mapa_html
+    })
+
+    return render(request,'integrador/form-domicilio.html', context)
+
+def geo_localizacion(request):
+    
+    context = {}
+
+    return render(request,'integrador/form-geo-localizacion.html', context)
 
 def dashboard(request):
     

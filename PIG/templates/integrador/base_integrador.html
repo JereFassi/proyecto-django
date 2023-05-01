@@ -35,6 +35,18 @@
                 <li>
                     <a href="{% url 'cliente' %}"><i class="fas fa-file-alt"></i> Clientes </a>
                 </li>
+
+                <li>
+                    <a href="#uielementsmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down"><i class="fas fa-map-marked-alt"></i> Mapas </a>
+                    <ul class="collapse list-unstyled" id="uielementsmenu">
+                        <li>
+                            <a href="{% url 'domicilio' %}"><i class="fas fa-file-alt"></i> Alta Domicilios </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'geo-localizacion' %}"><i class="fas fa-street-view"></i> Geo Localizar </a>
+                        </li>
+                    </ul>
+                </li>
                 <li>
                     <a href="{% url 'dashboard' %}"><i class="fas fa-home"></i> Dashboard</a>
                 </li>
