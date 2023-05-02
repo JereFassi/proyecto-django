@@ -1,12 +1,18 @@
 # Create your views here.
+
+# framework
+import logging
 from datetime import datetime
-from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.contrib import messages
 
+# app
 from integrador.forms import *
 from integrador.communications import *
 from integrador.maps import *
+
+logger = logging.getLogger(__name__)
 
 def index(request):
 
@@ -57,7 +63,10 @@ def domicilio(request):
                 "postalcode": domicilio_form.cleaned_data['codigo_postal'],
             }
             data = consulta_geodecode(domicilio_datos)
-            mapa_html = generar_mapa_html(data)
+            if data != None:
+                mapa_html = generar_mapa_html(data)
+            else:
+                f"<h4> No se pudo generar el mapa </h4>"
         else:
             messages.warning(request,'Por favor revisa los errores en el formulario')
     else:

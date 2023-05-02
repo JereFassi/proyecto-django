@@ -1,5 +1,8 @@
+import logging
 import folium
 import math
+
+logger = logging.getLogger(__name__)
 
 def generar_mapa_html(localizacion):
 
