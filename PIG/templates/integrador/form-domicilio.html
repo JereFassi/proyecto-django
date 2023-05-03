@@ -29,6 +29,14 @@
                         <form novalidate class="needs-validation" accept-charset="utf-8" id="domicilio_form" name="domicilio_form" action="{% url 'domicilio' %}" method="POST">
                             {% csrf_token %}
                             
+                            <div class="mb-3 col-md-6">
+                                {{ domicilio_form.fuente.label_tag }}
+                                {{ domicilio_form.fuente }}
+                                <div class="form-error">
+                                    {{ domicilio_form.fuente.errors }}
+                                </div>
+                            </div>
+
                             <div class="row g-2">
                                 <div class="mb-3 col-md-6">
                                     {{ domicilio_form.pais.label_tag }}

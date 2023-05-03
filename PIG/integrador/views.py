@@ -62,7 +62,8 @@ def domicilio(request):
                 "country": domicilio_form.cleaned_data['pais'],
                 "postalcode": domicilio_form.cleaned_data['codigo_postal'],
             }
-            data = consulta_geodecode(domicilio_datos)
+            fuente = domicilio_form.cleaned_data['fuente']
+            data = consulta_geodecode(fuente, domicilio_datos)
             if data != None:
                 mapa_html = generar_mapa_html(data)
             else:
