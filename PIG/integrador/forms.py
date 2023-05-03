@@ -31,6 +31,12 @@ class ClienteForm(forms.Form):
 
 class DomicilioForm(forms.Form):
 
+    FUENTES = (
+        ('',' - Seleccione - '),
+        ('https://geocode.maps.co/search?','Geocode'),
+        ('https://nominatim.openstreetmap.org/search?format=json','Openstreetmap'),
+    )
+
     PAISES = (
         ('',' - Seleccione - '),
         ('AR','Argentina'),
@@ -43,6 +49,13 @@ class DomicilioForm(forms.Form):
         ('Buenos Aires','Buenos Aires'),
         ('Cordoba','Córdoba'),
         ('La Pampa','La Pampa'),
+    )
+
+    fuente = forms.ChoiceField(
+        label = 'Fuente de consulta',
+        choices = FUENTES,
+        initial = 1,
+        widget = forms.Select(attrs={"class": "form-control", 'placeholder':'',})
     )
 
     pais = forms.ChoiceField(

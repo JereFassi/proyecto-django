@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-import os
 import environ
 from pathlib import Path
 from django.contrib.messages import constants as messages
@@ -164,6 +163,7 @@ LOGGING = {
     "handlers": {
         "console": {
             "class": "logging.StreamHandler",
+            "formatter": "simple",
         },
         "file": {
             "level": "DEBUG",
