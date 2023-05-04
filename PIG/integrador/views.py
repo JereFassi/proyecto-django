@@ -18,6 +18,20 @@ def index(request):
 
     context = {}
 
+    if(request.method=="POST"):
+        contacto_form = ContactoForm(request.POST)
+        if(contacto_form.is_valid()):  
+            messages.success(request,'Hemos recibido tus datos correctamente')          
+            # acción para tomar los datos del formulario
+        else:
+            messages.warning(request,'Por favor revisa los errores en el formulario')
+    else:
+        contacto_form = ContactoForm()
+    
+    context.update({
+        'contacto_form': contacto_form,
+    })
+
     return render(request,'integrador/index.html', context)
 
 def cliente(request):
