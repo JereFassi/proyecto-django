@@ -89,11 +89,13 @@ def geo_localizacion(request):
     return render(request,'integrador/form-geo-localizacion.html', context)
 
 def contacto(request):
-    if request.method=="POST":
-        contacto_form= ContactoForm(request.POST)
+    if request.method == "POST":
+        contacto_form = ContactoForm(request.POST)
+        if contacto_form.is_valid():
+                messages.info(request, "Datos enviados")
     else:
-        contacto_form=ContactoForm()
-    return render(request,'integrador/index.html', {contacto_form: contacto_form})
+        contacto_form = ContactoForm()
+    return render(request,'integrador/index.html', {'contacto_form': contacto_form})
 
 def dashboard(request):
     

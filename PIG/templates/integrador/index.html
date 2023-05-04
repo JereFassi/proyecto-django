@@ -194,18 +194,7 @@
                                 <p>En breve nuestro equipo de ventas se contactará para asesorarte</p>
                                 <form action="{% url 'contacto' %}" method="POST" accept-charset="utf-8">
                                     {% csrf_token %}
-                                    <div class="row">
-                                        {% for campo in contacto_form %}
-                                            <!--Grid column-->
-                                            <div class="col-md-12">
-                                                <div class="md-form mb-0">
-                                                    <label for="name" class="form-label">{{ campo.label }}</label>
-                                                    {{campo}}
-                                                </div>
-                                            </div>
-                                            <!--Grid column-->
-                                        {% endfor %}
-                                    </div>
+                                    {{contacto_form}}
                                     <button type="submit" class="btn btn-primary">Enviar</button>
                                 </form>
                             </div>
