@@ -148,17 +148,20 @@
                                 <canvas class="chart" id="linechart"></canvas>
                             </div>
                         </div>
-                        <p>
-                            En 2019 recibimos el premio ARGENPYME como reconocimiento al esfuerzo de nuestro equipo, que
-                            en
-                            un período de un año desde el lanzamiento, logró posicionar a G3 como una de las pymes con
-                            mayor crecimiento en sus ventas
-                        </p>
-                        <p>
-                            <img src="{% static '/integrador/bootstrap-sat/img/premio.jpg' %}" alt="premio">
-                        </p>
                     </div>
-
+                    <div class="card">
+                        <div class="card-header">ARGENPYME 2019</div>
+                        <div class="card-body">
+                            <p class="card-title">
+                                En 2019 recibimos el premio ARGENPYME como reconocimiento al esfuerzo de nuestro equipo, que en
+                                un período de un año desde el lanzamiento, logró posicionar a G3 como una de las pymes con
+                                mayor crecimiento en sus ventas
+                            </p>
+                            <div class="text-center">
+                                <img src="{% static '/integrador/bootstrap-sat/img/premio.jpg' %}" alt="premio">
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-md-6">
@@ -207,6 +210,7 @@
             </div>
         </div>
     </div>
+    
     {% endblock content %}
 
     {% block script %}
