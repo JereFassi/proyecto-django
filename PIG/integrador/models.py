@@ -42,10 +42,10 @@ class Cliente(Persona):
         (4, 'Pymes 1000'),
     ]
     tipo_servicio = models.IntegerField(choices=SERVICIOS)
-    vendedor=models.ForeignKey(Empleado, on_delete=models.CASCADE)
     fecha_alta = models.DateField(verbose_name='Fecha de Alta')
     fecha_baja = models.DateField(verbose_name='Fecha de Baja',null=True,default=None)
     coordenada_domicilio = models.CharField(max_length=50, verbose_name='Coordenadas domicilio')
+    legajo=models.ForeignKey(Empleado, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.tipo_servicio} - {self.nombre} {self.apellido}"
