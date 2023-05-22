@@ -4,13 +4,104 @@
 import logging
 from datetime import datetime
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import messages
 
 # app
 from integrador.forms import *
 from integrador.communications import *
 from integrador.maps import *
+from .forms import ClienteForm, EmpleadoForm
+from .models import Cliente, Empleado
+from django.views.generic import ListView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
+
+"""
+    CRUD Empleado
+"""
+def empleado_index(request):
+    #queryset
+    empleado = Empleado.objects.all()
+    return render(request,'integrador/empleado/index.html',{'empleado':empleado})
+
+def empleado_nuevo(request):
+    if(request.method=='POST'):
+        formulario = EmpleadoForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('empleado_index')
+    else:
+        formulario = EmpleadoForm()
+    return render(request,'integrador/empleado/nuevo.html',{'form':formulario})
+
+def empleado_editar(request,id_empleado):
+    try:
+        empleado = Empleado.objects.get(pk=id_empleado)
+    except Empleado.DoesNotExist:
+        return render(request,'error-404.html')
+
+    if(request.method=='POST'):
+        formulario = EmpleadoForm(request.POST,instance=empleado)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('empleado_index')
+    else:
+        formulario = EmpleadoForm(instance=empleado)
+    return render(request,'integrador/empleado/editar.html',{'form':formulario})
+
+def empleado_eliminar(request,id_empleado):
+    try:
+        empleado = Empleado.objects.get(pk=id_empleado)
+    except Empleado.DoesNotExist:
+        return render(request,'error-404.html')    
+    empleado.soft_delete()
+    return redirect('empleado_index')
+
+"""
+    CRUD Cliente
+"""
+def cliente_index(request):
+    #queryset
+    cliente = Cliente.objects.filter(fecha_baja=None)
+    return render(request,'integrador/cliente/index.html',{'empledo':cliente})
+
+def cliente_nuevo(request):
+    if(request.method=='POST'):
+        formulario = ClienteForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('cliente_index')
+    else:
+        formulario = ClienteForm()
+    return render(request,'integrador/cliente/nuevo.html',{'form':formulario})
+
+def cliente_editar(request,id_cliente):
+    try:
+        cliente = cliente.objects.get(pk=id_cliente)
+    except cliente.DoesNotExist:
+        return render(request,'error-404.html')
+
+    if(request.method=='POST'):
+        formulario = ClienteForm(request.POST,instance=cliente)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('cliente_index')
+    else:
+        formulario = ClienteForm(instance=cliente)
+    return render(request,'integrador/cliente/editar.html',{'form':formulario})
+
+def cliente_eliminar(request,id_cliente):
+    try:
+        cliente = cliente.objects.get(pk=id_cliente)
+    except cliente.DoesNotExist:
+        return render(request,'error-404.html')    
+    cliente.soft_delete()
+    return redirect('cliente_index')
+
+
 
 logger = logging.getLogger(__name__)
 
@@ -34,20 +125,20 @@ def index(request):
 
     return render(request,'integrador/index.html', context)
 
-def cliente(request):
+def clientes(request):
     
     context = {}
     mensaje = None
 
     if(request.method=='POST'):
-        cliente_form = ClienteForm(request.POST)
+        cliente_form = ClientesForm(request.POST)
         if(cliente_form.is_valid()):  
             messages.success(request,'Hemos recibido tus datos correctamente')          
             # acción para tomar los datos del formulario
         else:
             messages.warning(request,'Por favor revisa los errores en el formulario')
     else:
-        cliente_form = ClienteForm()
+        cliente_form = ClientesForm()
     
     context.update({
         'cliente_form': cliente_form,

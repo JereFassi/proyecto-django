@@ -1,8 +1,35 @@
 from django import forms
 # from django.core.validators import validate_email
 from integrador.form_validators import *
+from .models import Empleado, Cliente
 
-class ClienteForm(forms.Form):
+class EmpleadoForm(forms.ModelForm):
+    
+    class Meta:
+        model=Empleado
+        fields='__all__'
+        widgets = {
+            'comision' : forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese dígito del porcentaje'})
+        }
+        error_messages = {
+            'comision' :{
+                'required':'Valores Válidos del 1 al 5'
+            }
+        }
+
+class ClienteForm(forms.ModelForm):
+    
+    class Meta:
+        model=Cliente
+        fields='__all__'
+        widgets = {
+            
+        }
+        error_messages = {
+            
+        }
+
+class ClientesForm(forms.Form):
 
     nombre_y_apellido = forms.CharField(
         label = 'Nombre y Apellido',

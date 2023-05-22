@@ -1,0 +1,33 @@
+{% extends '../base_integrador.html' %}
+
+{% load static %}
+
+{% block title %} Clientes {% endblock %}
+
+{% block content %}
+
+<h1 class="mt-4">Clientes y Servicios</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'cliente_index' %}">Clientes</a></li>
+    <li class="breadcrumb-item active">Editar Cliente</li>
+</ol>
+
+<div class="card">
+    <div class="card-header">Edicion de base de clientes</div>
+    <div class="card-body">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% include 'integrador/cliente/form.html' %}
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+
+<script src="{% static '/integrador/bootstrap-sat/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static '/integrador/bootstrap-sat/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static '/integrador/bootstrap-sat/js/form-validator.js' %}"></script>
+<script src="{% static '/integrador/bootstrap-sat/js/script.js' %}"></script>
+
+{% endblock script %}

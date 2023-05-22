@@ -1,0 +1,36 @@
+{% extends '../base_integrador.html' %}
+
+{% load static %}
+
+{% block title %} Empleados {% endblock %}
+
+{% block content %}
+
+<h1 class="mt-4">Vendedores y Supervisores</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'empleado_index' %}">Empleados</a></li>
+    <li class="breadcrumb-item active">Eliminar empleado</li>
+</ol>
+
+
+
+<div class="card">
+    <div class="card-header">Baja de vendedor o supervisor</div>
+    <div class="card-body">
+        <form method="post">{% csrf_token %}
+            <p>Esta seguro que quiere eliminar al empleado?"{{ object.nombre }}"?</p>
+            <input type="submit" value="Confirmar" class="btn btn-danger">
+        </form>
+        
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+
+<script src="{% static '/integrador/bootstrap-sat/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static '/integrador/bootstrap-sat/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static '/integrador/bootstrap-sat/js/form-validator.js' %}"></script>
+<script src="{% static '/integrador/bootstrap-sat/js/script.js' %}"></script>
+
+{% endblock script %}
