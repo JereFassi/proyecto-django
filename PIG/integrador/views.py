@@ -68,11 +68,11 @@ def empleado_eliminar(request,id_empleado):
 def cliente_index(request):
     #queryset
     cliente = Cliente.objects.filter(fecha_baja=None)
-    return render(request,'integrador/cliente/index.html',{'empledo':cliente})
+    return render(request,'integrador/cliente/index.html',{'cliente':cliente})
 
 def cliente_nuevo(request):
     if(request.method=='POST'):
-        formulario = ClienteForm(request.POST)
+        formulario = ClienteForm(request.POST, request.FILES)
         if formulario.is_valid():
             formulario.save()
             return redirect('cliente_index')

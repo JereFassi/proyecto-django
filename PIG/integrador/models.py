@@ -43,7 +43,7 @@ class Cliente(Persona):
     ]
     tipo_servicio = models.IntegerField(choices=SERVICIOS)
     fecha_alta = models.DateField(verbose_name='Fecha de Alta')
-    fecha_baja = models.DateField(verbose_name='Fecha de Baja',null=True,default=None)
+    fecha_baja = models.DateField(null=True, blank=True)
     coordenada_domicilio = models.CharField(max_length=50, verbose_name='Coordenadas domicilio')
     legajo=models.ForeignKey(Empleado, on_delete=models.CASCADE)
 
