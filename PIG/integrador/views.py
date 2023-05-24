@@ -18,6 +18,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 
 
 
@@ -67,7 +68,7 @@ def empleado_eliminar(request,id_empleado):
 """
 def cliente_index(request):
     #queryset
-    cliente = Cliente.objects.filter(fecha_baja=None)
+    cliente = Cliente.objects.all()
     return render(request,'integrador/cliente/index.html',{'cliente':cliente})
 
 def cliente_nuevo(request):
@@ -103,7 +104,16 @@ def cliente_eliminar(request,id_cliente):
     cliente.soft_delete()
     return redirect('cliente_index')
 
+class SearchResultsList(ListView):
+    model = Cliente
+    context_object_name = "apellido"
+    template_name = "integrador/cliente/index.html"
 
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        return Cliente.objects.filter(
+            Q(apellido__icontains=query) 
+        )
 
 logger = logging.getLogger(__name__)
 

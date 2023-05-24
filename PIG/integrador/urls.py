@@ -12,6 +12,7 @@ urlpatterns = [
     path('cliente/nuevo/', views.cliente_nuevo,name='cliente_nuevo'),
     path('cliente/editar/<int:id_curso>', views.cliente_editar,name='cliente_editar'),
     path('cliente/eliminar/<int:id_curso>', views.cliente_eliminar,name='cliente_eliminar'),
+    path('clienteview/', views.SearchResultsList.as_view(),name='search_results'),
 
 
     
