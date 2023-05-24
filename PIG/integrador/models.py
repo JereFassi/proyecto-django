@@ -6,33 +6,33 @@ class Persona(models.Model):
     apellido = models.CharField(max_length=100,verbose_name='Apellido')
     dni = models.IntegerField(verbose_name="DNI")
     email = models.EmailField(max_length=150)
-    class Meta:
-        abstract=True   
 
-  
+    class Meta:
+        abstract = True
+
 class Empleado(Persona):
     legajo = models.IntegerField(verbose_name='Legajo')
     CATEGORIA = [
         (1,'Vendedor'),
         (2,'Supervisor'),
     ]
-    categoria = models.IntegerField(choices=CATEGORIA, verbose_name='Categoría')
-    comision = models.IntegerField(null=True, verbose_name='Comisión de Venta')
+    categoria = models.IntegerField(choices = CATEGORIA, verbose_name = 'Categoría')
+    comision = models.IntegerField(null = True, verbose_name = 'Comisión de Venta')
+    baja = models.BooleanField(default = 0)
     
     def __str__(self):
         return f"{self.legajo} - {self.apellido} {self.nombre}"
     
     def soft_delete(self):
-        self.baja=True
+        self.baja = True
         super().save()
     
     def restore(self):
-        self.baja=False
+        self.baja = False
         super().save()
     
     class Meta():
         verbose_name_plural = 'empleados'
-
 
 class Cliente(Persona):
     SERVICIOS = [

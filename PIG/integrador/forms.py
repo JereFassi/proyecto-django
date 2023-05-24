@@ -6,8 +6,8 @@ from .models import Empleado, Cliente
 class EmpleadoForm(forms.ModelForm):
     
     class Meta:
-        model=Empleado
-        fields='__all__'
+        model = Empleado
+        fields = '__all__'
         widgets = {
             'comision' : forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese dígito del porcentaje'})
         }

@@ -6,14 +6,14 @@ urlpatterns = [
     path('', views.index, name='inicio'),
     path('empleado/', views.empleado_index,name='empleado_index'),
     path('empleado/nuevo/', views.empleado_nuevo,name='empleado_nuevo'),
-    path('empleado/editar/<int:id_categoria>', views.empleado_editar,name='empleado_editar'),
-    path('empleado/eliminar/<int:id_categoria>', views.empleado_eliminar,name='empleado_eliminar'),
+    path('empleado/editar/<int:id>', views.empleado_editar,name='empleado_editar'),
+    path('empleado/eliminar/<int:id>', views.empleado_eliminar,name='empleado_eliminar'),
     path('cliente/', views.cliente_index,name='cliente_index'),
     path('cliente/nuevo/', views.cliente_nuevo,name='cliente_nuevo'),
-    path('cliente/editar/<int:id_curso>', views.cliente_editar,name='cliente_editar'),
-    path('cliente/eliminar/<int:id_curso>', views.cliente_eliminar,name='cliente_eliminar'),
+    path('cliente/editar/<int:id>', views.cliente_editar,name='cliente_editar'),
+    path('cliente/eliminar/<int:id>', views.cliente_eliminar,name='cliente_eliminar'),
     path('clienteview/', views.SearchResultsList.as_view(),name='search_results'),
-
+    
 
     
     path('clientes/', views.clientes, name='cliente'),

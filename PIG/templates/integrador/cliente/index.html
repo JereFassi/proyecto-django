@@ -37,55 +37,68 @@
                     <button class="btn btn-primary mt-4" type="submit">Buscar</button>
                 </div>
             </div>
-        </form>
-    </div>
-</div>
-<br>
-<div class="card">
-    <div class="card-body">
-        <a name="" id="" class="btn btn-success" href="{% url 'cliente_nuevo' %}" role="button"> <i class="fa-solid fa-circle-plus"></i> Nuevo</a>
-        <!-- bs5-table-defaul -->
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Apellido</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for cliente in clientes %}
-                    <tr>
-                        <td>{{cliente.id}}</td>
-                        <td>{{cliente.apellido}}</td>
-                        <td>
-                            <a href="{% url 'cliente_editar' empleado.id %}" title="Editar" class="btn btn-warning"><i class="fas fa-pencil"></i></a>
-                            <a href="{% url 'cliente_eliminar' empleado.id %}" title="Eliminar" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                        </td>
-                    </tr>
-                {% endfor %}
+            <div class="card-body">
+                <form action="">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="md-form mb-0">
+                                <label for="name" class="">Apellido</label>
+                                <input type="text" id="apellido" name="apellido" placeholder="Ingrese el apellido" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-3 ">
+                            <button class="btn btn-primary mt-4">Buscar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class="card-body">
+                <a name="" id="" class="btn btn-success" href="{% url 'cliente_nuevo' %}" role="button"> <i class="fa-solid fa-circle-plus"></i> Nuevo</a>
+                <!-- bs5-table-defaul -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Apellido</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cliente in clientes %}
+                        <tr>
+                            <td>{{cliente.id}}</td>
+                            <td>{{cliente.apellido}}</td>
+                            <td>
+                                <a href="{% url 'cliente_editar' empleado.id %}" title="Editar" class="btn btn-warning"><i class="fas fa-pencil"></i></a>
+                                <a href="{% url 'cliente_eliminar' empleado.id %}" title="Eliminar" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page=1">&laquo;</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Ant.</a></li>
+                        {% endif %}
 
-            </tbody>
-        </table>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                {% if page_obj.has_previous %}
-                    <li class="page-item"><a class="page-link" href="?page=1">&laquo;</a></li>
-                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Ant.</a></li>
-                {% endif %}
-        
-                <li class="page-item">
-                    <a class="page-link">{{ page_obj.number }}</a>
-                </li>
-        
-                {% if page_obj.has_next %}
-                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Sig.</a></li>
-                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a></li>
-                {% endif %}
-            </ul>
-        </nav>
+                        <li class="page-item">
+                            <a class="page-link">{{ page_obj.number }}</a>
+                        </li>
+
+                        {% if page_obj.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Sig.</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
     </div>
-    
 </div>
 
 {% endblock %}

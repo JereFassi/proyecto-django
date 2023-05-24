@@ -27,7 +27,7 @@ from django.db.models import Q
 """
 def empleado_index(request):
     #queryset
-    empleado = Empleado.objects.all()
+    empleado = Empleado.objects.filter(baja = False)
     return render(request,'integrador/empleado/index.html',{'empleado':empleado})
 
 def empleado_nuevo(request):
@@ -40,26 +40,26 @@ def empleado_nuevo(request):
         formulario = EmpleadoForm()
     return render(request,'integrador/empleado/nuevo.html',{'form':formulario})
 
-def empleado_editar(request,id_empleado):
+def empleado_editar(request,id):
     try:
-        empleado = Empleado.objects.get(pk=id_empleado)
+        empleado = Empleado.objects.get(pk = id)
     except Empleado.DoesNotExist:
         return render(request,'error-404.html')
 
     if(request.method=='POST'):
-        formulario = EmpleadoForm(request.POST,instance=empleado)
+        formulario = EmpleadoForm(request.POST,instance = empleado)
         if formulario.is_valid():
             formulario.save()
             return redirect('empleado_index')
     else:
-        formulario = EmpleadoForm(instance=empleado)
+        formulario = EmpleadoForm(instance = empleado)
     return render(request,'integrador/empleado/editar.html',{'form':formulario})
 
-def empleado_eliminar(request,id_empleado):
+def empleado_eliminar(request,id):
     try:
-        empleado = Empleado.objects.get(pk=id_empleado)
+        empleado = Empleado.objects.get(pk = id)
     except Empleado.DoesNotExist:
-        return render(request,'error-404.html')    
+        return render(request,'error-404.html')
     empleado.soft_delete()
     return redirect('empleado_index')
 
