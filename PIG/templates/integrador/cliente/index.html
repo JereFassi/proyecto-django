@@ -10,11 +10,11 @@
         <div class="page-title">
             <h3>Clientes y Servicios</h3>
         </div>
-<ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item"><a href="{% url 'cliente_index' %}">Clientes</a></li>
-    <li class="breadcrumb-item active">ABM Clientes y servicios asociados</li>
-</ol>
-</div>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="{% url 'cliente_index' %}">Clientes</a></li>
+            <li class="breadcrumb-item active">ABM Clientes y servicios asociados</li>
+        </ol>
+    </div>
 </div>
 <div class="card">
     <div class="card-header">
@@ -26,11 +26,8 @@
                 <div class="col-3">
                     <div class="md-form mb-0">
                         <label for="name" class="">Apellido</label>
-                        
-                        <input type="text" 
-                              name="buscar"
-                              placeholder="Ingrese el apellido" 
-                              class="form-control">
+
+                        <input type="text" name="buscar" placeholder="Ingrese el apellido" class="form-control">
                     </div>
                 </div>
                 <div class="col-3 ">
@@ -38,40 +35,40 @@
                 </div>
             </div>
         </form>
-        </div>
-        <br>
-        <div class="card">
-            <div class="card-body">
-                <a name="" id="" class="btn btn-success" href="{% url 'cliente_nuevo' %}" role="button"> <i
-                        class="fa-solid fa-circle-plus"></i> Nuevo</a>
-                <!-- bs5-table-defaul -->
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Apellido</th>
-                            <th>Domicilio</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for cliente in cliente %}
-                        <tr>
-                            <td>{{cliente.apellido}}</td>
-                            <td>{{cliente.domicilio}}</td>
-                            <td>
-                                <a href="{% url 'cliente_editar' cliente.id %}" title="Editar" class="btn btn-warning"><i
-                                        class="fas fa-pencil-alt"></i></a>
-                                <a href="{% url 'cliente_eliminar' cliente.id %}" title="Eliminar" class="btn btn-danger"><i
-                                        class="fas fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-        
-            </div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <a name="" id="" class="btn btn-success" href="{% url 'cliente_nuevo' %}" role="button"> <i
+                    class="fa-solid fa-circle-plus"></i> Nuevo</a>
+            <!-- bs5-table-defaul -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Apellido</th>
+                        <th>Domicilio</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cliente in cliente %}
+                    <tr>
+                        <td>{{cliente.apellido}}</td>
+                        <td>{{cliente.domicilio}}</td>
+                        <td>
+                            <a href="{% url 'cliente_editar' cliente.id %}" title="Editar" class="btn btn-warning"><i
+                                    class="fas fa-pencil-alt"></i></a>
+                            <a href="{% url 'cliente_eliminar' cliente.id %}" title="Eliminar" class="btn btn-danger"><i
+                                    class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
         </div>
     </div>
+</div>
 </div>
 
 {% endblock %}
@@ -84,4 +81,3 @@
 <script src="{% static '/integrador/bootstrap-sat/js/script.js' %}"></script>
 
 {% endblock script %}
-    

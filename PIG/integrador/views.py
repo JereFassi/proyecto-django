@@ -17,7 +17,7 @@ from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 
 
@@ -27,7 +27,7 @@ from django.db.models import Q
 """
 def empleado_index(request):
     #queryset
-    empleado = Empleado.objects.filter()
+    empleado = Empleado.objects.filter(baja=False)
     return render(request,'integrador/empleado/index.html',{'empleado':empleado})
 
 def empleado_nuevo(request):
@@ -68,7 +68,7 @@ def empleado_eliminar(request,id):
 """
 def cliente_index(request):
     #queryset
-    cliente = Cliente.objects.all()
+    cliente = Cliente.objects.filter(baja=False)
     return render(request,'integrador/cliente/index.html',{'cliente':cliente})
 
 def cliente_nuevo(request):
