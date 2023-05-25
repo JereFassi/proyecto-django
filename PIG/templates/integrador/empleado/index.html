@@ -10,7 +10,7 @@
         <div class="page-title">
             <h3>Vendedores y Supervisores</h3>
         </div>
-       
+
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="{% url 'empleado_index' %}">Empleados</a></li>
             <li class="breadcrumb-item active">ABM Empleados de ventas</li>
@@ -27,7 +27,8 @@
                                 <div class="col-3">
                                     <div class="md-form mb-0">
                                         <label for="name" class="">Apellido</label>
-                                        <input type="text" id="apellido" name="apellido" placeholder="Ingrese el apellido" class="form-control">
+                                        <input type="text" id="apellido" name="apellido"
+                                            placeholder="Ingrese el apellido" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-3 ">
@@ -42,7 +43,8 @@
         <br>
         <div class="card">
             <div class="card-body">
-                <a name="" id="" class="btn btn-success" href="{% url 'empleado_nuevo' %}" role="button"> <i class="fa-solid fa-circle-plus"></i> Nuevo</a>
+                <a name="" id="" class="btn btn-success" href="{% url 'empleado_nuevo' %}" role="button"> <i
+                        class="fa-solid fa-circle-plus"></i> Nuevo</a>
                 <!-- bs5-table-defaul -->
                 <table class="table">
                     <thead>
@@ -53,48 +55,33 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for emp in empleado %}
+                        {% for empleado in empleado %}
                         <tr>
-                            <td>{{emp.legajo}}</td>
-                            <td>{{emp.apellido}}</td>
-                            <td>{{emp.nombre}}</td>
+                            <td>{{empleado.legajo}}</td>
+                            <td>{{empleado.apellido}}</td>
                             <td>
-                                <a href="{% url 'empleado_editar' emp.id %}" title="Editar" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                                <a href="{% url 'empleado_eliminar' emp.id %}" title="Eliminar" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                <a href="{% url 'empleado_editar' empleado.id %}" title="Editar"
+                                    class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
+                                <a href="{% url 'empleado_eliminar' empleado.id %}" title="Eliminar"
+                                    class="btn btn-danger"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
                         {% endfor %}
+
                     </tbody>
                 </table>
 
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        {% if page_obj.has_previous %}
-                        <li class="page-item"><a class="page-link" href="?page=1">&laquo;</a></li>
-                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Ant.</a></li>
-                        {% endif %}
-                        <li class="page-item">
-                            <a class="page-link">{{ page_obj.number }}</a>
-                        </li>
-
-                        {% if page_obj.has_next %}
-                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Sig.</a></li>
-                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a></li>
-                        {% endif %}
-                    </ul>
-                </nav>
             </div>
+
         </div>
-    </div>
-</div>
 
-{% endblock %}
+        {% endblock %}
 
-{% block script %}
+        {% block script %}
 
-<script src="{% static '/integrador/bootstrap-sat/vendor/jquery/jquery.min.js' %}"></script>
-<script src="{% static '/integrador/bootstrap-sat/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-<script src="{% static '/integrador/bootstrap-sat/js/form-validator.js' %}"></script>
-<script src="{% static '/integrador/bootstrap-sat/js/script.js' %}"></script>
+        <script src="{% static '/integrador/bootstrap-sat/vendor/jquery/jquery.min.js' %}"></script>
+        <script src="{% static '/integrador/bootstrap-sat/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static '/integrador/bootstrap-sat/js/form-validator.js' %}"></script>
+        <script src="{% static '/integrador/bootstrap-sat/js/script.js' %}"></script>
 
-{% endblock script %}
+        {% endblock script %}

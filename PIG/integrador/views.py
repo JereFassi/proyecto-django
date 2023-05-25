@@ -27,7 +27,7 @@ from django.db.models import Q
 """
 def empleado_index(request):
     #queryset
-    empleado = Empleado.objects.filter(baja = False)
+    empleado = Empleado.objects.filter()
     return render(request,'integrador/empleado/index.html',{'empleado':empleado})
 
 def empleado_nuevo(request):
@@ -73,7 +73,7 @@ def cliente_index(request):
 
 def cliente_nuevo(request):
     if(request.method=='POST'):
-        formulario = ClienteForm(request.POST, request.FILES)
+        formulario = ClienteForm(request.POST)
         if formulario.is_valid():
             formulario.save()
             return redirect('cliente_index')
@@ -81,39 +81,38 @@ def cliente_nuevo(request):
         formulario = ClienteForm()
     return render(request,'integrador/cliente/nuevo.html',{'form':formulario})
 
-def cliente_editar(request,id_cliente):
+def cliente_editar(request,id):
     try:
-        cliente = cliente.objects.get(pk=id_cliente)
-    except cliente.DoesNotExist:
+        cliente = Cliente.objects.get(pk = id)
+    except Cliente.DoesNotExist:
         return render(request,'error-404.html')
 
     if(request.method=='POST'):
-        formulario = ClienteForm(request.POST,instance=cliente)
+        formulario = ClienteForm(request.POST,instance = cliente)
         if formulario.is_valid():
             formulario.save()
             return redirect('cliente_index')
     else:
-        formulario = ClienteForm(instance=cliente)
+        formulario = ClienteForm(instance = cliente)
     return render(request,'integrador/cliente/editar.html',{'form':formulario})
 
-def cliente_eliminar(request,id_cliente):
+def cliente_eliminar(request,id):
     try:
-        cliente = cliente.objects.get(pk=id_cliente)
-    except cliente.DoesNotExist:
-        return render(request,'error-404.html')    
+        cliente = Cliente.objects.get(pk = id)
+    except Cliente.DoesNotExist:
+        return render(request,'error-404.html')
     cliente.soft_delete()
     return redirect('cliente_index')
 
-class SearchResultsList(ListView):
-    model = Cliente
-    context_object_name = "apellido"
-    template_name = "integrador/cliente/index.html"
-
-    def get_queryset(self):
-        query = self.request.GET.get("q")
-        return Cliente.objects.filter(
-            Q(apellido__icontains=query) 
-        )
+def get_queryset(request):
+        queryset = request.GET.get("buscar")
+        cliente=Cliente.objects.filter(baja=False)
+        if queryset:
+            cliente=Cliente.objects.filter(
+                Q(apellido__icontains=queryset)
+            )
+        return render(request,'integrador/cliente/index.html',{'cliente':cliente}) 
+        
 
 logger = logging.getLogger(__name__)
 

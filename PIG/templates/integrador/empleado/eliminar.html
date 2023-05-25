@@ -18,7 +18,7 @@
     <div class="card-header">Baja de vendedor o supervisor</div>
     <div class="card-body">
         <form method="post">{% csrf_token %}
-            <p>Esta seguro que quiere eliminar al empleado?"{{ object.nombre }}"?</p>
+            <p>Esta seguro que quiere eliminar al empleado"{{ object.nombre }}"?</p>
             <input type="submit" value="Confirmar" class="btn btn-danger">
         </form>
         

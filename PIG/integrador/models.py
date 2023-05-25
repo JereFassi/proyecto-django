@@ -1,11 +1,14 @@
 from django.db import models
+from datetime import datetime
 
 # Create your models here.
 class Persona(models.Model):
     nombre = models.CharField(max_length=100,verbose_name='Nombre')
     apellido = models.CharField(max_length=100,verbose_name='Apellido')
+    domicilio = models.CharField(max_length=100,verbose_name='Domicilio')
     dni = models.IntegerField(verbose_name="DNI")
     email = models.EmailField(max_length=150)
+    baja=models.BooleanField(default=False)
 
     class Meta:
         abstract = True
@@ -18,10 +21,9 @@ class Empleado(Persona):
     ]
     categoria = models.IntegerField(choices = CATEGORIA, verbose_name = 'Categoría')
     comision = models.IntegerField(null = True, verbose_name = 'Comisión de Venta')
-    baja = models.BooleanField(default = 0)
-    
+        
     def __str__(self):
-        return f"{self.legajo} - {self.apellido} {self.nombre}"
+        return f"{self.legajo} - {self.apellido}"
     
     def soft_delete(self):
         self.baja = True
@@ -45,10 +47,11 @@ class Cliente(Persona):
     fecha_alta = models.DateField(verbose_name='Fecha de Alta')
     fecha_baja = models.DateField(null=True, blank=True)
     coordenada_domicilio = models.CharField(max_length=50, verbose_name='Coordenadas domicilio')
-    legajo=models.ForeignKey(Empleado, on_delete=models.CASCADE)
+    legajo=models.ForeignKey(Empleado, on_delete=models.CASCADE, verbose_name='Vendedor asignado')
+    
 
     def __str__(self):
-        return f"{self.tipo_servicio} - {self.nombre} {self.apellido}"
+        return f"{self.apellido} - {self.domicilio}"
     
     def soft_delete(self):
         self.baja=True
@@ -57,3 +60,6 @@ class Cliente(Persona):
     def restore(self):
         self.baja=False
         super().save()
+    
+    class Meta():
+        verbose_name_plural = 'clientes'
