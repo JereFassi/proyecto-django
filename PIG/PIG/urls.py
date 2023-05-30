@@ -16,8 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
+from integrador.admin import sitio_admin
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', sitio_admin.urls),
     path('',include('integrador.urls')),
 ]
