@@ -122,20 +122,3 @@ class DomicilioForm(forms.Form):
         label = 'Numero',
         widget = forms.NumberInput(attrs={"class": "form-control", 'placeholder':'ej: 124', "onkeyup": "formValidate()"})
     )
-
-class ContactoForm(forms.Form):
-
-    nombre_contacto = forms.CharField(
-        label = 'Nombre y Apellido',
-        widget = forms.TextInput(attrs={'class':'form-control', 'name':'nombre_contacto', 'placeholder':'Nombre para contacto'})
-    )
-
-    telefono = forms.IntegerField(
-        label = 'Teléfono',
-        widget = forms.NumberInput(attrs={'class':'form-control','name':'telefono', 'placeholder':'Teléfono Cód Area XXX y número'})
-    )
-
-    email = forms.EmailField(
-        label = 'Email',
-        widget = forms.EmailInput(attrs={'class':'form-control','name':'email', 'placeholder':'Dirección de Email'})
-    )
