@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Empleado, Cliente
+from .models import Empleado, Domicilio, Tecnico, Vendedor, Servicio
 
 # Register your models here.
 
@@ -16,18 +16,39 @@ class G3AdminSite(admin.AdminSite):
     empty_value_display = 'No hay datos para visualizar'
 
 
-class ClienteAdmin(admin.ModelAdmin):
-    list_display=('apellido', 'domicilio','tipo_servicio',)
+  
+
+    
+    
+class VendedorAdmin(admin.ModelAdmin):
+    list_display=('apellido', 'legajo',)
     list_editable = ()
     list_filter = ('dni',)
     search_fields = ('nombre','apellido')
-    
+
     def get_queryset(self, request):
-        query = super(ClienteAdmin, self).get_queryset(request)
+        query = super(VendedorAdmin, self).get_queryset(request)
+        filtered_query = query.filter(baja=False)
+        return filtered_query
+    
+class TecnicoAdmin(admin.ModelAdmin):
+    list_display=('apellido', 'legajo',)
+    list_editable = ()
+    list_filter = ('dni',)
+    search_fields = ('nombre','apellido')
+
+    def get_queryset(self, request):
+        query = super(TecnicoAdmin, self).get_queryset(request)
         filtered_query = query.filter(baja=False)
         return filtered_query
 
-class EmpleadoAdmin(admin.ModelAdmin):
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "provincia":
+            kwargs["queryset"] = Domicilio.objects.filter(provincia=self.provincia)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+    
+    
+class ServicioAdmin(admin.ModelAdmin):
     pass
 #modificar listados de foreingkey para que solo muestre los que no estan de baja
     #def formfield_for_foreignkey(self, db_field, request, **kwargs):
@@ -36,5 +57,6 @@ class EmpleadoAdmin(admin.ModelAdmin):
         #return super().formfield_for_foreignkey(db_field, request, **kwargs)
     
 sitio_admin = G3AdminSite(name='g3admin')
-sitio_admin.register(Cliente,ClienteAdmin)
-sitio_admin.register(Empleado,EmpleadoAdmin)
+sitio_admin.register(Vendedor,VendedorAdmin)
+sitio_admin.register(Tecnico,TecnicoAdmin)
+sitio_admin.register(Servicio,ServicioAdmin)
