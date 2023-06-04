@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Empleado, Domicilio, Tecnico, Vendedor, Servicio
+from .models import Empleado, Domicilio, Tecnico, Vendedor, Servicio, OrdenTrabajo
 
 # Register your models here.
 
@@ -17,8 +17,11 @@ class G3AdminSite(admin.AdminSite):
 
 
   
+class OrdenTrabajoInline(admin.TabularInline):
+    model = OrdenTrabajo
 
-    
+class OrdenTrabajoAdmin(admin.ModelAdmin):
+    pass
     
 class VendedorAdmin(admin.ModelAdmin):
     list_display=('apellido', 'legajo',)
@@ -36,6 +39,9 @@ class TecnicoAdmin(admin.ModelAdmin):
     list_editable = ()
     list_filter = ('dni',)
     search_fields = ('nombre','apellido')
+    inlines = [
+        OrdenTrabajoInline,
+    ]
 
     def get_queryset(self, request):
         query = super(TecnicoAdmin, self).get_queryset(request)
@@ -49,7 +55,7 @@ class TecnicoAdmin(admin.ModelAdmin):
     
     
 class ServicioAdmin(admin.ModelAdmin):
-    pass
+    list_display=('descripcion',)
 #modificar listados de foreingkey para que solo muestre los que no estan de baja
     #def formfield_for_foreignkey(self, db_field, request, **kwargs):
         #if db_field.name == "categoria":
@@ -60,3 +66,4 @@ sitio_admin = G3AdminSite(name='g3admin')
 sitio_admin.register(Vendedor,VendedorAdmin)
 sitio_admin.register(Tecnico,TecnicoAdmin)
 sitio_admin.register(Servicio,ServicioAdmin)
+sitio_admin.register(OrdenTrabajo,OrdenTrabajoAdmin)

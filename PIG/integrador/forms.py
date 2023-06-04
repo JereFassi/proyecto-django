@@ -1,21 +1,8 @@
 from django import forms
 # from django.core.validators import validate_email
 from integrador.form_validators import *
-from .models import Empleado, Cliente
+from .models import Cliente, Domicilio
 
-class EmpleadoForm(forms.ModelForm):
-    
-    class Meta:
-        model = Empleado
-        fields = '__all__'
-        widgets = {
-            'comision' : forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese dígito del porcentaje'})
-        }
-        error_messages = {
-            'comision' :{
-                'required':'Valores Válidos del 1 al 5'
-            }
-        }
 
 class ClienteForm(forms.ModelForm):
     
@@ -29,35 +16,20 @@ class ClienteForm(forms.ModelForm):
             
         }
 
-class ClientesForm(forms.Form):
-
-    nombre_y_apellido = forms.CharField(
-        label = 'Nombre y Apellido',
-        max_length = 256,
-        validators=(only_letters,),
-        widget = forms.TextInput(attrs={"class": "form-control", 'placeholder':'Homero Simpson', "onkeyup": "formValidate()"})
-    )
-
-    dni = forms.IntegerField(
-        label = 'Documento de Identidad',
-        widget = forms.NumberInput(attrs={"class": "form-control", 'placeholder':'12345678', "onkeyup": "formValidate()"})
-    )
-
-    email = forms.EmailField(
-        label = 'Email',
-        max_length = 128,
-        validators = (validate_email,),
-        error_messages = {'required': 'Por favor complete el campo'},
-        widget = forms.TextInput(attrs={'class':'form-control','type':'email', 'placeholder':'pig@cac.com.ar', "onkeyup": "formValidate()"})
-    )
-
-    telefono = forms.IntegerField(
-        label = 'Telefono',
-        widget = forms.NumberInput(attrs={"class": "form-control", 'placeholder':'+54 9 291 425262', "onkeyup": "formValidate()"})
-    )
-
-class DomicilioForm(forms.Form):
-
+class DomicilioForm(forms.ModelForm):
+    class Meta:
+        model=Domicilio
+        fields='__all__'
+        exclude=('cliente_id','servicio_id',)
+        widgets = {
+            'direccion' : forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese calle y número'}),
+            'localidad' :forms.TextInput(attrs={"class": "form-control", 'placeholder':'ej: Bahía Blanca'})
+        }
+        error_messages = {
+            'codigo_postal' :{
+                'required':'Formato numérico XXXX'
+            }
+        }
     FUENTES = (
         ('',' - Seleccione - '),
         ('https://geocode.maps.co/search?','Geocode'),
@@ -65,19 +37,11 @@ class DomicilioForm(forms.Form):
     )
 
     PAISES = (
-        ('',' - Seleccione - '),
         ('AR','Argentina'),
         ('BR','Brasil'),
-        ('PR','Patricio Rey'),
     )
 
-    PROVINCIAS = (
-        ('',' - Seleccione - '),
-        ('Buenos Aires','Buenos Aires'),
-        ('Cordoba','Córdoba'),
-        ('La Pampa','La Pampa'),
-    )
-
+    
     fuente = forms.ChoiceField(
         label = 'Fuente de consulta',
         choices = FUENTES,
@@ -90,35 +54,4 @@ class DomicilioForm(forms.Form):
         choices = PAISES,
         initial = 1,
         widget = forms.Select(attrs={"class": "form-control", 'placeholder':'',})
-    )
-
-    provincia = forms.ChoiceField(
-        label = 'Provincia',
-        choices = PROVINCIAS,
-        initial = 1,
-        widget = forms.Select(attrs={"class": "form-control", 'placeholder':'',})
-    )
-
-    codigo_postal = forms.IntegerField(
-        label = 'Código Postal',
-        widget = forms.NumberInput(attrs={"class": "form-control", 'placeholder':'ej: 8000', "onkeyup": "formValidate()"})
-    )
-
-    ciudad = forms.CharField(
-        label = 'Ciudad',
-        max_length = 256,
-        validators=(),
-        widget = forms.TextInput(attrs={"class": "form-control", 'placeholder':'ej: bahia blanca', "onkeyup": "formValidate()"})
-    )
-
-    calle = forms.CharField(
-        label = 'Calle',
-        max_length = 256,
-        validators=(),
-        widget = forms.TextInput(attrs={"class": "form-control", 'placeholder':'ej: alsina', "onkeyup": "formValidate()"})
-    )
-
-    numero = forms.IntegerField(
-        label = 'Numero',
-        widget = forms.NumberInput(attrs={"class": "form-control", 'placeholder':'ej: 124', "onkeyup": "formValidate()"})
     )

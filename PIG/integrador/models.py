@@ -32,6 +32,7 @@ PROVINCIA=[
         (1, 'Buenos Aires'),
         (2, 'Córdoba'),
         (3, 'Santa Fe'),
+        (4, 'C.A.B.A.'),
     ]
 
 class Empleado(Persona):
@@ -103,13 +104,16 @@ class Servicio(models.Model):
 
 class Domicilio(models.Model):
     cliente_id = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name='Cliente')
-    servicio_id = models.ManyToManyField(Servicio, verbose_name='Tipo de servicio')
+    servicio_id = models.ManyToManyField(Servicio, verbose_name='Tipo de servicio',blank=True, null=True)
     direccion = models.CharField(max_length=100, verbose_name='Domicilio')
     codigo_postal = models.CharField(max_length=20, verbose_name='Código Postal')
     localidad = models.CharField(max_length=50, verbose_name='Localidad')
     provincia =models.IntegerField(choices=PROVINCIA)
-    latitud=models.FloatField(max_length=20, verbose_name='Coordenada Latitud')
-    longitud=models.FloatField(max_length=20, verbose_name='Coordenada Longitud')
+    latitud=models.FloatField(max_length=20, verbose_name='Coordenada Latitud', blank=True, null=True)
+    longitud=models.FloatField(max_length=20, verbose_name='Coordenada Longitud', blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.direccion} - {self.localidad}"
 
 class OrdenTrabajo(models.Model):
     domicilio_id=models.ForeignKey(Domicilio, on_delete=models.CASCADE, verbose_name='Domicilio de instalación')
@@ -121,3 +125,6 @@ class OrdenTrabajo(models.Model):
         (3,'Cancelada'),
         ]
     estado_ot=models.IntegerField(choices=ESTADO, verbose_name='Estado de la Orden de Trabajo')
+
+    class Meta():
+        verbose_name_plural = 'Ordenes de Trabajo'

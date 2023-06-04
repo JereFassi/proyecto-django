@@ -33,27 +33,9 @@
                     <a href="{% url 'inicio_empleado' %}"><i class="fas fa-home"></i> Nuestros Servicios</a>
                 </li>
                 <li>
-                    <a href="{% url 'clientes' %}"><i class="fas fa-file-alt"></i> Clientes </a>
+                    <a href="{%url 'cliente_index' %}"><i class="fas fa-table"></i> Módulo Ventas </a>
                 </li>
-
-                <li>
-                    <a href="#uielementsmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down"><i class="fas fa-map-marked-alt"></i> Mapas </a>
-                    <ul class="collapse list-unstyled" id="uielementsmenu">
-                        <li>
-                            <a href="{% url 'domicilio' %}"><i class="fas fa-file-alt"></i> Alta Domicilios </a>
-                        </li>
-                        <li>
-                            <a href="{% url 'geo-localizacion' %}"><i class="fas fa-street-view"></i> Geo Localizar </a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="{% url 'empleado_index' %}"><i class="fas fa-file-alt"></i> Vendedores y Supervisores</a>
-                </li>
-                <li>
-                    <a href="{%url 'cliente_index' %}"><i class="fas fa-table"></i> Clientes y Servicios</a>
-                </li>
-                <li>
+                <!--<li>
                     <a href="{% url 'dashboard' %}"><i class="fas fa-home"></i> ..</a>
                 </li>
                 <li>
@@ -119,8 +101,10 @@
                 <li>
                     <a href="{% url 'settings' %}"><i class="fas fa-cog"></i>..</a>
                 </li>
+                 -->
             </ul>
         </nav>
+   
         <div id="body" class="active">
             <!-- navbar navigation component -->
             <nav class="navbar navbar-expand-lg navbar-white bg-white">
