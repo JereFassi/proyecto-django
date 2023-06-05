@@ -2,14 +2,14 @@
 
 {% load static %}
 
-{% block title %} Domicilios {% endblock %}
+{% block title %} Domicilio y Servicio {% endblock %}
 
 {% block content %}
 
 <div class="content">
     <div class="container">
         <div class="page-title">
-            <h3>Alta de Domicilio</h3>
+            <h3>Alta de Domicilio y Servicio</h3>
         </div>
 
         {% if messages %}
@@ -25,71 +25,13 @@
                 <div class="card">
                     <h3 class="card-header"><span class="badge bg-warning">Domicilio</span></h3>
                     <div class="card-body">
-                        <h5 class="card-title">Formulario de Alta de Domicilio</h5>
+                        <h5 class="card-title">Alta de Domicilio</h5>
                         <form novalidate class="needs-validation" accept-charset="utf-8" id="domicilio_form" name="domicilio_form" action="{% url 'domicilio' %}" method="POST">
                             {% csrf_token %}
+                            {{domicilio_form}}
                             
-                            <div class="mb-3 col-md-6">
-                                {{ domicilio_form.fuente.label_tag }}
-                                {{ domicilio_form.fuente }}
-                                <div class="form-error">
-                                    {{ domicilio_form.fuente.errors }}
-                                </div>
-                            </div>
-
-                            <div class="row g-2">
-                                <div class="mb-3 col-md-6">
-                                    {{ domicilio_form.pais.label_tag }}
-                                    {{ domicilio_form.pais }}
-                                    <div class="form-error">
-                                        {{ domicilio_form.pais.errors }}
-                                    </div>
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    {{ domicilio_form.provincia.label_tag }}
-                                    {{ domicilio_form.provincia }}
-                                    <div class="form-error">
-                                        {{ domicilio_form.provincia.errors }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row g-2">
-                                <div class="mb-3 col-md-6">
-                                    {{ domicilio_form.codigo_postal.label_tag }}
-                                    {{ domicilio_form.codigo_postal }}
-                                    <div class="form-error">
-                                        {{ domicilio_form.codigo_postal.errors }}
-                                    </div>
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    {{ domicilio_form.ciudad.label_tag }}
-                                    {{ domicilio_form.ciudad }}
-                                    <div class="form-error">
-                                        {{ domicilio_form.ciudad.errors }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row g-2">
-                                <div class="mb-3 col-md-9">
-                                    {{ domicilio_form.calle.label_tag }}
-                                    {{ domicilio_form.calle }}
-                                    <div class="form-error">
-                                        {{ domicilio_form.calle.errors }}
-                                    </div>
-                                </div>
-                                <div class="mb-3 col-md-3">
-                                    {{ domicilio_form.numero.label_tag }}
-                                    {{ domicilio_form.numero }}
-                                    <div class="form-error">
-                                        {{ domicilio_form.numero.errors }}
-                                    </div>
-                                </div>
-                            </div>
-
                             <div class="text-end">
-                                <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Verificar</button>
+                                <button type="submit" action="{% url 'servicio' %}" class="btn btn-success"><i class="fas fa-check"></i> Verificar</button>
                             </div>
                         </form>
                         {% comment %} <div class="mb-3 col-md-12">
@@ -101,13 +43,50 @@
                 </div>
             </div>
         </div>
-
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    <h3 class="card-header"><span class="badge bg-warning">Confirmar Domicilio</span></h3>
+                    <h3 class="card-header"><span class="badge bg-warning">Servicios a instalar</span></h3>
                     <div class="card-body">
-                        {% comment %} <h5 class="card-title">Formulario de Alta de Domicilio</h5> {% endcomment %}
+                        <h5 class="card-title">Alta de Servicios</h5>
+                        <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Tipo de servicio disponible en la zona</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for servicio in servicio %}
+                            <tr>
+                                <td>{{servicio.descripcion}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        </table>
+
+                        <div class="mb-3 col-md-4">
+                            <label for="servicio" class="form-label">Servicio contratado</label>
+                            <select name="servicio" class="form-select" required>
+                                <option value="" selected>Elija el servicio a contratar</option>
+                                {% for servicio in servicio %}
+                                <option value="">{{servicio.descripcion}}</option>
+                                {%endfor%}
+                            </select>
+                        </div>
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Agregar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <h3 class="card-header"><span class="badge bg-warning">Confirmar Venta</span></h3>
+                    <div class="card-body">
+                        {% comment %} <h5 class="card-title">Formulario de Alta de Domicilio y Servicio</h5> {% endcomment %}
                         <form novalidate id="geo_domicilio_form" name="geo_domicilio_form" action="{% url 'domicilio' %}" method="POST">
                             {% csrf_token %}
                             {% if mapa %}
@@ -122,7 +101,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
