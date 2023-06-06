@@ -28,8 +28,9 @@
                         <h5 class="card-title">Alta de Domicilio</h5>
                         <form novalidate class="needs-validation" accept-charset="utf-8" id="domicilio_form" name="domicilio_form" action="{% url 'domicilio' %}" method="POST">
                             {% csrf_token %}
-                            {{domicilio_form}}
-                            
+                            <table>
+                            {{domicilio_form.as_table}}
+                            </table>
                             <div class="text-end">
                                 <button type="submit" action="{% url 'servicio' %}" class="btn btn-success"><i class="fas fa-check"></i> Verificar</button>
                             </div>
