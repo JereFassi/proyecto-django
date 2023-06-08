@@ -22,7 +22,7 @@ class Persona(models.Model):
     DOC_TIPO = [
         (1,'DNI'),
         (2,'CUIT'),
-        (3, 'CUIL'),]
+        (3,'CUIL'),]
     tipo_dni = models.IntegerField(choices=DOC_TIPO, verbose_name='Tipo de documento')
     dni = models.IntegerField(verbose_name="Documento")
     email = models.EmailField(max_length=150)
@@ -116,7 +116,7 @@ class Servicio(models.Model):
 
 class Domicilio(models.Model):
     cliente_id = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name='Cliente')
-    servicio_id = models.ManyToManyField(Servicio, verbose_name='Tipo de servicio',blank=True, null=True)
+    servicio_id = models.ManyToManyField(Servicio, verbose_name='Tipo de servicio',blank=True,)
     direccion = models.CharField(max_length=100, verbose_name='Domicilio')
     codigo_postal = models.CharField(max_length=20, verbose_name='Código Postal')
     localidad = models.CharField(max_length=50, verbose_name='Localidad')

@@ -169,6 +169,14 @@ EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 RECIPIENT_ADDRESS = env("RECIPIENT_ADDRESS")
 
+# Modelo User
+AUTH_USER_MODEL = 'integrador.Usuario'
+
+LOGIN_URL ='/acceso_empleados'
+
+LOGIN_REDIRECT_URL = "inicio_empleado"
+
+# Logging
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,

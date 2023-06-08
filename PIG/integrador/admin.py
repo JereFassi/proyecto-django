@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Empleado, Domicilio, Tecnico, Vendedor, Servicio, OrdenTrabajo
+from .models import Empleado, Domicilio, Tecnico, Vendedor, Servicio, OrdenTrabajo, Usuario
+from django.contrib.auth.models import Group
+from django.contrib.auth.admin import UserAdmin, GroupAdmin
 
 # Register your models here.
 
@@ -15,8 +17,6 @@ class G3AdminSite(admin.AdminSite):
     index_title= 'Administracion del sitio'
     empty_value_display = 'No hay datos para visualizar'
 
-
-  
 class OrdenTrabajoInline(admin.TabularInline):
     model = OrdenTrabajo
 
@@ -67,3 +67,5 @@ sitio_admin.register(Vendedor,VendedorAdmin)
 sitio_admin.register(Tecnico,TecnicoAdmin)
 sitio_admin.register(Servicio,ServicioAdmin)
 sitio_admin.register(OrdenTrabajo,OrdenTrabajoAdmin)
+sitio_admin.register(Usuario,UserAdmin)
+sitio_admin.register(Group,GroupAdmin)
