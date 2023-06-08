@@ -113,6 +113,9 @@ class Servicio(models.Model):
                                        MaxValueValidator(40)],default=37)
     upstream_mv = models.IntegerField(validators=[MinValueValidator(40),
                                        MaxValueValidator(50)],default=45)
+    
+    def __str__(self):
+        return f"{self.descripcion}"
 
 class Domicilio(models.Model):
     cliente_id = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name='Cliente')
@@ -138,5 +141,8 @@ class OrdenTrabajo(models.Model):
         ]
     estado_ot=models.IntegerField(choices=ESTADO, verbose_name='Estado de la Orden de Trabajo')
 
+    def __str__(self):
+        return f"{self.tecnico_id} - {self.domicilio_id} - {self.estado_ot}"
+    
     class Meta():
         verbose_name_plural = 'Ordenes de Trabajo'
