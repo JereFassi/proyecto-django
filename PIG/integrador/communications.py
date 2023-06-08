@@ -5,11 +5,11 @@ logger = logging.getLogger(__name__)
 
 def consulta_geodecode(base_url, domicilio_datos):
 
-    # BASE_URL = 'https://geocode.maps.co/search?'
+    BASE_URL = 'https://geocode.maps.co/search?'
     # BASE_URL = 'https://nominatim.openstreetmap.org/search?format=json'
 
-    request = f"{base_url}&street={domicilio_datos['street']}&city={domicilio_datos['city']}&state={domicilio_datos['state']}&postalcode={domicilio_datos['postalcode']}&country={domicilio_datos['country']}"
-    request = request.replace(" ", "+")
+    request = f"https://geocode.maps.co/search?&street={domicilio_datos['street']}&city={domicilio_datos['city']}&state={domicilio_datos['state']}&postalcode={domicilio_datos['postalcode']}&country={domicilio_datos['country']}"
+    request = request.replace(" ", "+").replace("'", "").replace("(", "").replace(")", "")
     
     data = None
     try:

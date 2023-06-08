@@ -93,11 +93,19 @@ def domicilio(request):
             messages.success(request,'Domicilio válido para realizar instalación')
             domicilio_form.save()
             # acción para tomar los datos del formulario
+            num_provincia=domicilio_form.cleaned_data['provincia']
+            if num_provincia==1 or num_provincia==4:
+               num_provincia='buenos aires',
+            elif num_provincia==2:
+               num_provincia='cordoba',
+            elif num_provincia==3:
+               num_provincia='santa fe'
+
             domicilio_datos = {
                 "street": f"{domicilio_form.cleaned_data['direccion']}",
                 "city": domicilio_form.cleaned_data['localidad'],
-                "state": domicilio_form.cleaned_data['provincia'],
-                "country": 'Argentina',
+                "state": num_provincia,
+                "country": 'AR',
                 "postalcode": domicilio_form.cleaned_data['codigo_postal'],
             }
             fuente = 'Geocode'
@@ -106,9 +114,10 @@ def domicilio(request):
                 mapa_html = generar_mapa_html(data)
             else:
                 f"<h4> No se pudo generar el mapa </h4>"
+            
         else:
             messages.warning(request,'Por favor revisa los datos ingresados')
-        return redirect('servicio')
+        
     else:
         domicilio_form = DomicilioForm()
     
