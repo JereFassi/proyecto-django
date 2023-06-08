@@ -12,7 +12,7 @@ from integrador.forms import *
 from integrador.communications import *
 from integrador.maps import *
 from .forms import ClienteForm
-from .models import Cliente, Servicio
+from .models import Cliente, Servicio, OrdenTrabajo
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -91,7 +91,7 @@ def domicilio(request):
         domicilio_form = DomicilioForm(request.POST)
         if(domicilio_form.is_valid()):
             messages.success(request,'Domicilio válido para realizar instalación')
-            domicilio_form.save()
+            domicilio_form.save(commit=False)
             # acción para tomar los datos del formulario
             num_provincia=domicilio_form.cleaned_data['provincia']
             if num_provincia==1 or num_provincia==4:
@@ -112,6 +112,7 @@ def domicilio(request):
             data = consulta_geodecode(fuente, domicilio_datos)
             if data != None:
                 mapa_html = generar_mapa_html(data)
+                domicilio_form.save()
             else:
                 f"<h4> No se pudo generar el mapa </h4>"
             
@@ -150,7 +151,30 @@ class ServicioListView(ListView):
         context = {}
         return render(request,'integrador/form-domicilio.html', context)
     
-    
+class OrdenTrabajoListView(ListView):
+    model = OrdenTrabajo
+    context_object_name = 'ordentrabajo'
+    template_name= 'integrador/form-ordentrabajo.html'
+    queryset= OrdenTrabajo.objects.all()
+    ordering = ['tecnico_id']
+    paginate_by = 6
+
+    def ordentrabajo(request):
+        context = {}
+        return render(request,'integrador/form-ordentrabajo.html', context)
+
+class OrdenTrabajoUpdateView(UpdateView):
+    model = OrdenTrabajo
+    fields = ['estado_ot']
+    # form_class = 
+    template_name = 'integrador/form-ordentrabajo-editar.html'
+    success_url = reverse_lazy('ordentrabajo')
+
+    def get_object(self, queryset=None):
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        obj = get_object_or_404(OrdenTrabajo, pk=pk)
+        return obj
+
 def dashboard(request):
     
     context = {}

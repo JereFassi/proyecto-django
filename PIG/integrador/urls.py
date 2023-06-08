@@ -34,5 +34,9 @@ urlpatterns = [
     path('settings/', views.settings, name='settings'),
 
     path('servicioview/', views.ServicioListView.as_view(),name='servicio'),
+
+    path('ordentrabajoview/', views.OrdenTrabajoListView.as_view(),name='ordentrabajo'),
+    path('ordentrabajoedit/<int:pk>', views.OrdenTrabajoUpdateView.as_view(),name='ordentrabajoedit'),
+
 ]
 
