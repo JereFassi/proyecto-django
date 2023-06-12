@@ -6,19 +6,28 @@
 
 {% block content %}
 
-<h1 class="mt-4">Clientes  y Servicios</h1>
+<div class="content">
+    <div class="container">
+        <div class="page-title">
+            <h1 class="mt-4">Clientes y Servicios</h1>
+        </div>
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{% url 'cliente_index' %}">Clientes</a></li>
     <li class="breadcrumb-item active">Alta de cliente y servicio asociado</li>
 </ol>
-
-<div class="card">
-    <div class="card-header">Alta de cliente y servicio asociado</div>
-    <div class="card-body">
-        <form action="{% url 'cliente_nuevo' %}" method="post" novalidate enctype="multipart/form-data">
-            {% csrf_token %}
-            {% include 'integrador/cliente/form.html' %}
-        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">Alta de cliente y servicio asociado</div>
+            <div class="card-body">
+                <form action="{% url 'cliente_nuevo' %}" method="post" novalidate enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% include 'integrador/cliente/form.html' %}
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

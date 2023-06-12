@@ -1,7 +1,7 @@
 from django import forms
 # from django.core.validators import validate_email
 from integrador.form_validators import *
-from .models import Cliente, Domicilio
+from .models import Cliente, Domicilio, OrdenTrabajo
 
 
 class ClienteForm(forms.ModelForm):
@@ -20,9 +20,9 @@ class DomicilioForm(forms.ModelForm):
     class Meta:
         model=Domicilio
         fields='__all__'
-        exclude=('cliente_id','servicio_id',)
+        exclude=('servicio_id','cliente_id')   
         widgets = {
-            'direccion' : forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese calle y número'}),
+            'direccion' :forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese calle y número'}),
             'localidad' :forms.TextInput(attrs={"class": "form-control", 'placeholder':'ej: Bahía Blanca'})
         }
         error_messages = {
@@ -55,3 +55,15 @@ class DomicilioForm(forms.ModelForm):
         initial = 1,
         widget = forms.Select(attrs={"class": "form-control", 'placeholder':'',})
     )
+
+class OrdenTrabajoForm(forms.ModelForm):
+    
+    class Meta:
+        model=OrdenTrabajo
+        fields='__all__'
+        widgets = {
+            
+        }
+        error_messages = {
+            
+        }
