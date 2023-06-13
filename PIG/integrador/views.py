@@ -20,6 +20,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
+
 """
     CRUD Cliente
 """
@@ -32,8 +35,8 @@ def cliente_nuevo(request):
     if(request.method=='POST'):
         formulario = ClienteForm(request.POST)
         if formulario.is_valid():
-            formulario.save()
-            return redirect('domicilio')
+            cliente = formulario.save()
+            return redirect('domicilio_cliente',cliente.id)
     else:
         formulario = ClienteForm()
     return render(request,'integrador/cliente/nuevo.html',{'form':formulario})
@@ -62,23 +65,40 @@ def cliente_eliminar(request,id):
     return redirect('cliente_index')
 
 def get_queryset(request):
-        queryset = request.GET.get("buscar")
-        cliente=Cliente.objects.filter(baja=False)
-        if queryset:
-            cliente=Cliente.objects.filter(
-                Q(apellido__icontains=queryset)
-            )
-        return render(request,'integrador/cliente/index.html',{'cliente':cliente}) 
+    queryset = request.GET.get("buscar")
+    cliente=Cliente.objects.filter(baja=False)
+    if queryset:
+        cliente=Cliente.objects.filter(
+            Q(apellido__icontains=queryset)
+        )
+    return render(request,'integrador/cliente/index.html',{'cliente':cliente}) 
         
 
 logger = logging.getLogger(__name__)
 
+@login_required
 def index(request):
 
     context = {}
 
     return render(request,'integrador/index.html', context)
 
+
+def domicilio_cliente(request, cliente_id):
+    
+    context = {}
+
+    if(request.method=='POST'):
+        messages.error(request,'Revisar circuito de Alta Cliente')
+    else:
+        domicilio_form = DomicilioForm()
+    
+    context.update({
+        'domicilio_form': domicilio_form,
+        'cliente_id': cliente_id,
+    })
+
+    return render(request,'integrador/form-domicilio.html', context)
 
 def domicilio(request):
     
@@ -91,8 +111,16 @@ def domicilio(request):
         domicilio_form = DomicilioForm(request.POST)
         if(domicilio_form.is_valid()):
             messages.success(request,'Domicilio válido para realizar instalación')
-            domicilio_form.save(commit=False)
             # acción para tomar los datos del formulario
+
+            cliente_id = domicilio_form.data['cliente_id']
+            try:
+                cliente = Cliente.objects.get(pk = cliente_id)
+            except Cliente.DoesNotExist:
+                return render(request,'error-404.html')
+
+            servicio_id = domicilio_form.cleaned_data['servicio_id']
+
             num_provincia=domicilio_form.cleaned_data['provincia']
             if num_provincia==1 or num_provincia==4:
                num_provincia='buenos aires',
@@ -112,13 +140,15 @@ def domicilio(request):
             data = consulta_geodecode(fuente, domicilio_datos)
             if data != None:
                 mapa_html = generar_mapa_html(data)
-                domicilio_form.save()
+                # domicilio_form.save()
             else:
                 f"<h4> No se pudo generar el mapa </h4>"
-            
+
+            domicilio = domicilio_form.save(commit=False)
+            domicilio.cliente = cliente
+            domicilio.save()
         else:
             messages.warning(request,'Por favor revisa los datos ingresados')
-        
     else:
         domicilio_form = DomicilioForm()
     
