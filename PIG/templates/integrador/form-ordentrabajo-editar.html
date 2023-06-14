@@ -13,11 +13,11 @@
         </div>
 
         {% if messages %}
-            {% for message in messages %}
-                {% if message.tags %}
-                    <h4><span class="badge bg-{{ message.tags }}">{{ message }}</span></h4>
-                {% endif %}
-            {% endfor %}
+        {% for message in messages %}
+        {% if message.tags %}
+        <h4><span class="badge bg-{{ message.tags }}">{{ message }}</span></h4>
+        {% endif %}
+        {% endfor %}
         {% endif %}
 
         <div class="row">
@@ -27,23 +27,37 @@
                     <div class="card-body">
                         <h5 class="card-title">Actualización de Estado</h5>
                         <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Técnico-Domicilio-Estado:1:Pendiente/2:Realizada/3:Cancelada</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!--{% for ordentrabajo in ordentrabajo %}
-                            <tr>
-                                <td>{{ordentrabajo.estado_ot}}</td>
-                                <td>
-                                    <a href="{% url 'cliente_index' %}" title="Editar" class="btn btn-warning"><i
-                                            class="fas fa-pencil-alt"></i></a>
-                                </td>
-                            </tr>
-                            {% endfor %}-->
-                        </tbody>
+                            <thead>
+                                <tr>
+                                    <th>Indique el cambio de estado de esta Orden:</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <td>{% csrf_token %}
+                                        {%for campo in form%}
+                                        <div class="mb-3 col-md-6">
+                                            <label for="">{{campo.label}}</label>
+                                            {% comment %} <input type="{{campo.field.widget.input_type}}"
+                                                name="{{campo.name}}" id="{{campo.name}}" class="form-control"
+                                                placeholder="Ingrese {{campo.name}}"
+                                                value="{{ campo.value | default:'' }}"> {% endcomment %}
+                                                {{campo}}
+                                        </div>
+                                        <div>{{campo.errors}}</div>
+                                        {%endfor%}
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                                <input type="submit" value="Actualizar" class="btn btn-success">
+                                                <a href="{% url 'ordentrabajo' %}"
+                                                    class="btn btn-secondary">Cancelar</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
                         </table>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 import logging
 import folium
 import math
+from django.shortcuts import render, redirect
 
 logger = logging.getLogger(__name__)
 
@@ -27,5 +28,5 @@ def generar_mapa_html(localizacion):
 
     folium.LayerControl().add_to(mapa)
     mapa_html = mapa._repr_html_()
-
+    redirect('cliente_index')
     return mapa_html

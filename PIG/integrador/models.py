@@ -142,7 +142,7 @@ class OrdenTrabajo(models.Model):
     estado_ot=models.IntegerField(choices=ESTADO, verbose_name='Estado de la Orden de Trabajo')
 
     def __str__(self):
-        return f"{self.tecnico_id} - {self.domicilio_id} - {self.estado_ot}"
+        return f"{self.tecnico_id} / {self.domicilio_id} / {self.estado_ot}"
     
     class Meta():
         verbose_name_plural = 'Ordenes de Trabajo'

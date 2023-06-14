@@ -51,7 +51,7 @@ def cliente_editar(request,id):
         formulario = ClienteForm(request.POST,instance = cliente)
         if formulario.is_valid():
             formulario.save()
-            return redirect('domicilio')
+            return redirect('domicilio_cliente',cliente.id)
     else:
         formulario = ClienteForm(instance = cliente)
     return render(request,'integrador/cliente/editar.html',{'form':formulario})
@@ -119,7 +119,7 @@ def domicilio(request):
             except Cliente.DoesNotExist:
                 return render(request,'error-404.html')
 
-            servicio_id = domicilio_form.cleaned_data['servicio_id']
+            #servicio_id = domicilio_form.cleaned_data['servicio_id']
 
             num_provincia=domicilio_form.cleaned_data['provincia']
             if num_provincia==1 or num_provincia==4:
@@ -140,13 +140,14 @@ def domicilio(request):
             data = consulta_geodecode(fuente, domicilio_datos)
             if data != None:
                 mapa_html = generar_mapa_html(data)
-                # domicilio_form.save()
+                
             else:
                 f"<h4> No se pudo generar el mapa </h4>"
 
             domicilio = domicilio_form.save(commit=False)
-            domicilio.cliente = cliente
+            domicilio.cliente_id_id = cliente_id
             domicilio.save()
+            redirect('cliente_index')
         else:
             messages.warning(request,'Por favor revisa los datos ingresados')
     else:
@@ -187,16 +188,14 @@ class OrdenTrabajoListView(ListView):
     template_name= 'integrador/form-ordentrabajo.html'
     queryset= OrdenTrabajo.objects.all()
     ordering = ['tecnico_id']
-    paginate_by = 6
-
+    
     def ordentrabajo(request):
         context = {}
         return render(request,'integrador/form-ordentrabajo.html', context)
 
 class OrdenTrabajoUpdateView(UpdateView):
     model = OrdenTrabajo
-    fields = ['estado_ot']
-    # form_class = 
+    form_class = OrdenTrabajoForm
     template_name = 'integrador/form-ordentrabajo-editar.html'
     success_url = reverse_lazy('ordentrabajo')
 
@@ -204,6 +203,16 @@ class OrdenTrabajoUpdateView(UpdateView):
         pk = self.kwargs.get(self.pk_url_kwarg)
         obj = get_object_or_404(OrdenTrabajo, pk=pk)
         return obj
+    
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+        # <process form cleaned data>
+            
+            return HttpResponseRedirect('ordentrabajo')
+        else:
+            form=OrdenTrabajoForm()
+        return render(request, self.template_name, {'form': form})
 
 def dashboard(request):
     

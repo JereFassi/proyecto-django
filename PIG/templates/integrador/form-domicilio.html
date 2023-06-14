@@ -23,9 +23,9 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    <h3 class="card-header"><span class="badge bg-warning">Domicilio</span></h3>
+                    <h3 class="card-header"><span class="badge bg-warning">Domicilio y servicio a instalar</span></h3>
                     <div class="card-body">
-                        <h5 class="card-title">Alta de Domicilio</h5>
+                        <h5 class="card-title">Ingrese los datos solicitados:</h5>
                         <form novalidate class="needs-validation" accept-charset="utf-8" id="domicilio_form" name="domicilio_form" action="{% url 'domicilio' %}" method="POST">
                             {% csrf_token %}
                             <table>
@@ -48,7 +48,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    <h3 class="card-header"><span class="badge bg-warning">Confirmar Venta</span></h3>
+                    <h3 class="card-header"><span class="badge bg-warning">Geolocalización</span></h3>
                     <div class="card-body">
                         {% comment %} <h5 class="card-title">Formulario de Alta de Domicilio y Servicio</h5> {% endcomment %}
                         <form novalidate id="geo_domicilio_form" name="geo_domicilio_form" action="{% url 'domicilio' %}" method="POST">
@@ -58,14 +58,14 @@
                             {% endif %}
                             <br>
                             <div class="text-end">
-                                <button type="" href="{% url 'servicio' %}" action="{% url 'servicio' %}" class="btn btn-success"><i class="fas fa-save"></i> Guardar</button>
+                                <button type="" href="" action="" class="btn btn-success"><i class="fas fa-save"></i> Guardar</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
+        <!--<div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <h3 class="card-header"><span class="badge bg-warning">Servicios a instalar</span></h3>
@@ -102,7 +102,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
         
     </div>
 </div>

@@ -62,6 +62,7 @@ class OrdenTrabajoForm(forms.ModelForm):
     class Meta:
         model=OrdenTrabajo
         fields='__all__'
+        exclude = ('domicilio_id', 'tecnico_id')
         widgets = {
             
         }
