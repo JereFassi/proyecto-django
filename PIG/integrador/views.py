@@ -199,20 +199,6 @@ class OrdenTrabajoUpdateView(UpdateView):
     template_name = 'integrador/form-ordentrabajo-editar.html'
     success_url = reverse_lazy('ordentrabajo')
 
-    def get_object(self, queryset=None):
-        pk = self.kwargs.get(self.pk_url_kwarg)
-        obj = get_object_or_404(OrdenTrabajo, pk=pk)
-        return obj
-    
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-        # <process form cleaned data>
-            
-            return HttpResponseRedirect('ordentrabajo')
-        else:
-            form=OrdenTrabajoForm()
-        return render(request, self.template_name, {'form': form})
 
 def dashboard(request):
     
