@@ -119,7 +119,7 @@ class Servicio(models.Model):
 
 class Domicilio(models.Model):
     cliente_id = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name='Cliente')
-    servicio_id = models.ManyToManyField(Servicio, verbose_name='Tipo de servicio',blank=True,)
+    servicio = models.ManyToManyField(Servicio, verbose_name='Tipo de servicio',)
     direccion = models.CharField(max_length=100, verbose_name='Domicilio')
     codigo_postal = models.CharField(max_length=20, verbose_name='Código Postal')
     localidad = models.CharField(max_length=50, verbose_name='Localidad')

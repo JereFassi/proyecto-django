@@ -65,12 +65,13 @@ def cliente_eliminar(request,id):
     return redirect('cliente_index')
 
 def get_queryset(request):
-    queryset = request.GET.get("buscar")
-    cliente=Cliente.objects.filter(baja=False)
+    queryset = request.GET.get('buscar')
     if queryset:
         cliente=Cliente.objects.filter(
             Q(apellido__icontains=queryset)
         )
+    else:
+        cliente=Cliente.objects.filter(baja=False)
     return render(request,'integrador/cliente/index.html',{'cliente':cliente}) 
         
 
@@ -119,8 +120,6 @@ def domicilio(request):
             except Cliente.DoesNotExist:
                 return render(request,'error-404.html')
 
-            #servicio_id = domicilio_form.cleaned_data['servicio_id']
-
             num_provincia=domicilio_form.cleaned_data['provincia']
             if num_provincia==1 or num_provincia==4:
                num_provincia='buenos aires',
@@ -145,8 +144,16 @@ def domicilio(request):
                 f"<h4> No se pudo generar el mapa </h4>"
 
             domicilio = domicilio_form.save(commit=False)
+            
             domicilio.cliente_id_id = cliente_id
+            
             domicilio.save()
+
+            domicilio_form.save_m2m()
+
+            
+            
+            
             redirect('cliente_index')
         else:
             messages.warning(request,'Por favor revisa los datos ingresados')
@@ -162,6 +169,7 @@ def domicilio(request):
 
     return render(request,'integrador/form-domicilio.html', context)
 
+
 def geo_localizacion(request):
     
     context = {}
@@ -176,7 +184,7 @@ class ServicioListView(ListView):
     template_name= 'integrador/form-domicilio.html'
     queryset= Servicio.objects.all()
     ordering = ['descripcion']
-    paginate_by = 6
+    
 
     def servicio(request):
         context = {}
@@ -199,7 +207,11 @@ class OrdenTrabajoUpdateView(UpdateView):
     template_name = 'integrador/form-ordentrabajo-editar.html'
     success_url = reverse_lazy('ordentrabajo')
 
+def ventas(request):
+    
+    context = {}
 
+    return render(request,'integrador/ventas.html', context)
 def dashboard(request):
     
     context = {}

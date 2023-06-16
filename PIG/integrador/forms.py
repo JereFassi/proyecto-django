@@ -20,7 +20,6 @@ class DomicilioForm(forms.ModelForm):
     class Meta:
         model=Domicilio
         fields='__all__'
-        # exclude=('cliente_id','servicio_id',)
         exclude=('cliente_id',)
         widgets = {
             'direccion' :forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese calle y número'}),

@@ -20,54 +20,57 @@
     <div class="card-header">
         <h3>Buscar cliente por apellido</h3>
     </div>
-    <div class="card-body">
-        <form action="" method="get">
+    <div class="card-body search">
+        <form action="{% url 'buscar' %}" method="get">
             <div class="row">
-                <div class="col-3">
-                    <div class="md-form mb-0">
-                        <label for="name" class="">Apellido</label>
-
+                <div class="col-3" id="custom-search-input">
+                    <div class="input-group md-form mb-0">
+                        
                         <input type="text" name="buscar" placeholder="Ingrese el apellido" class="form-control">
+                        <span class=" input-group-list"> 
+                        <div class="col-md-6">
+                            <button class="btn btn-primary mt-6" type="submit">Buscar</button>
                     </div>
-                </div>
-                <div class="col-3 ">
-                    <button class="btn btn-primary mt-4" type="submit">Buscar</button>
+                    </span>
                 </div>
             </div>
-        </form>
-    </div>
-    <br>
-    <div class="card">
-        <div class="card-body">
-            <a name="" id="" class="btn btn-success" href="{% url 'cliente_nuevo' %}" role="button"> <i
-                    class="fa-solid fa-circle-plus"></i> Nuevo</a>
-            <!-- bs5-table-defaul -->
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Apellido</th>
-                        <th>Domicilio</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for cliente in cliente %}
-                    <tr>
-                        <td>{{cliente.apellido}}</td>
-                        <td>{{cliente.domicilio}}</td>
-                        <td>
-                            <a href="{% url 'cliente_editar' cliente.id %}" title="Editar" class="btn btn-warning"><i
-                                    class="fas fa-pencil-alt"></i></a>
-                            <a href="{% url 'cliente_eliminar' cliente.id %}" title="Eliminar" class="btn btn-danger"><i
-                                    class="fas fa-trash"></i></a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
 
-        </div>
     </div>
+    </form>
+</div>
+<br>
+<div class="card">
+    <div class="card-body">
+        <a name="" id="" class="btn btn-success" href="{% url 'cliente_nuevo' %}" role="button"> <i
+                class="fa-solid fa-circle-plus"></i> Nuevo</a>
+    </div>
+    <div class="card-body">    <!-- bs5-table-defaul -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Apellido</th>
+                    <th>Domicilio</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cliente in cliente %}
+                <tr>
+                    <td>{{cliente.apellido}}</td>
+                    <td>{{cliente.domicilio}}</td>
+                    <td>
+                        <a href="{% url 'cliente_editar' cliente.id %}" title="Editar" class="btn btn-warning"><i
+                                class="fas fa-pencil-alt"></i></a>
+                        <a href="{% url 'cliente_eliminar' cliente.id %}" title="Eliminar" class="btn btn-danger"><i
+                                class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
 </div>
 </div>
 

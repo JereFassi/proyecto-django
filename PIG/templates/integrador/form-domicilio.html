@@ -51,7 +51,7 @@
                     <h3 class="card-header"><span class="badge bg-warning">Geolocalización</span></h3>
                     <div class="card-body">
                         {% comment %} <h5 class="card-title">Formulario de Alta de Domicilio y Servicio</h5> {% endcomment %}
-                        <form novalidate id="geo_domicilio_form" name="geo_domicilio_form" action="{% url 'domicilio' %}" method="POST">
+                        <form novalidate id="geo_domicilio_form" name="geo_domicilio_form" action="{% url 'cliente_index' %}" method="POST">
                             {% csrf_token %}
                             {% if mapa %}
                                 <div> {{ mapa | safe }}</div>

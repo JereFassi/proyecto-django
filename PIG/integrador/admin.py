@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Empleado, Domicilio, Tecnico, Vendedor, Servicio, OrdenTrabajo, Usuario
+from .models import Empleado, Cliente, Domicilio, Tecnico, Vendedor, Servicio, OrdenTrabajo, Usuario
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin, GroupAdmin
 
@@ -61,11 +61,34 @@ class ServicioAdmin(admin.ModelAdmin):
         #if db_field.name == "categoria":
             #kwargs["queryset"] = ModelXX.objects.filter(baja=False)
         #return super().formfield_for_foreignkey(db_field, request, **kwargs)
-    
+
+class ServicioInline(admin.TabularInline):
+    model = Domicilio.servicio.through
+class DomicilioInline(admin.TabularInline):
+    model = Domicilio
+
+class ClienteAdmin(admin.ModelAdmin):
+    inlines = [
+        DomicilioInline,
+        
+    ]
+ 
+class DomicilioAdmin(admin.ModelAdmin):
+    inlines = [
+        ServicioInline,
+    ]
+    exclude = ('servicio',)
+
+
+ 
+
+  
 sitio_admin = G3AdminSite(name='g3admin')
 sitio_admin.register(Vendedor,VendedorAdmin)
 sitio_admin.register(Tecnico,TecnicoAdmin)
 sitio_admin.register(Servicio,ServicioAdmin)
 sitio_admin.register(OrdenTrabajo,OrdenTrabajoAdmin)
+sitio_admin.register(Domicilio,DomicilioAdmin)
+sitio_admin.register(Cliente,ClienteAdmin)
 sitio_admin.register(Usuario,UserAdmin)
 sitio_admin.register(Group,GroupAdmin)
