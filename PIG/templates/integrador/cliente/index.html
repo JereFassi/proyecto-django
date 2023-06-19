@@ -18,7 +18,7 @@
 </div>
 <div class="card">
     <div class="card-header">
-        <h3>Buscar cliente por apellido</h3>
+        <h4>Buscar cliente por apellido</h4>
     </div>
     <div class="card-body search">
         <form action="{% url 'buscar' %}" method="get">
@@ -49,7 +49,6 @@
             <thead>
                 <tr>
                     <th>Apellido</th>
-                    <th>Domicilio</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -57,7 +56,6 @@
                 {% for cliente in cliente %}
                 <tr>
                     <td>{{cliente.apellido}}</td>
-                    <td>{{cliente.domicilio}}</td>
                     <td>
                         <a href="{% url 'cliente_editar' cliente.id %}" title="Editar" class="btn btn-warning"><i
                                 class="fas fa-pencil-alt"></i></a>

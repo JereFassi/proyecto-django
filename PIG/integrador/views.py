@@ -16,9 +16,10 @@ from .models import Cliente, Servicio, OrdenTrabajo
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
+
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
@@ -26,11 +27,15 @@ from django.contrib.auth.decorators import permission_required
 """
     CRUD Cliente
 """
+@login_required
+@permission_required('integrador.view_cliente', login_url='/acceso_empleados')
 def cliente_index(request):
     #queryset
-    cliente = Cliente.objects.filter(baja=False)
-    return render(request,'integrador/cliente/index.html',{'cliente':cliente})
+        cliente = Cliente.objects.filter(baja=False)
+        return render(request,'integrador/cliente/index.html',{'cliente':cliente})
 
+@login_required
+@permission_required('integrador.add_cliente', login_url='/acceso_empleados')
 def cliente_nuevo(request):
     if(request.method=='POST'):
         formulario = ClienteForm(request.POST)
@@ -41,6 +46,8 @@ def cliente_nuevo(request):
         formulario = ClienteForm()
     return render(request,'integrador/cliente/nuevo.html',{'form':formulario})
 
+@login_required
+@permission_required('integrador.change_cliente', login_url='/acceso_empleados')
 def cliente_editar(request,id):
     try:
         cliente = Cliente.objects.get(pk = id)
@@ -56,6 +63,8 @@ def cliente_editar(request,id):
         formulario = ClienteForm(instance = cliente)
     return render(request,'integrador/cliente/editar.html',{'form':formulario})
 
+@login_required
+@permission_required('integrador.delete_cliente', login_url='/acceso_empleados')
 def cliente_eliminar(request,id):
     try:
         cliente = Cliente.objects.get(pk = id)
@@ -77,6 +86,7 @@ def get_queryset(request):
 
 logger = logging.getLogger(__name__)
 
+    
 @login_required
 def index(request):
 
@@ -84,7 +94,8 @@ def index(request):
 
     return render(request,'integrador/index.html', context)
 
-
+@login_required
+@permission_required('integrador.add_domicilio', login_url='/acceso_empleados')
 def domicilio_cliente(request, cliente_id):
     
     context = {}
@@ -101,6 +112,8 @@ def domicilio_cliente(request, cliente_id):
 
     return render(request,'integrador/form-domicilio.html', context)
 
+@login_required
+@permission_required('integrador.add_domicilio', login_url='/acceso_empleados')
 def domicilio(request):
     
     context = {}
@@ -189,13 +202,14 @@ class ServicioListView(ListView):
     def servicio(request):
         context = {}
         return render(request,'integrador/form-domicilio.html', context)
-    
+
 class OrdenTrabajoListView(ListView):
     model = OrdenTrabajo
     context_object_name = 'ordentrabajo'
     template_name= 'integrador/form-ordentrabajo.html'
     queryset= OrdenTrabajo.objects.all()
     ordering = ['tecnico_id']
+    
     
     def ordentrabajo(request):
         context = {}
@@ -207,11 +221,7 @@ class OrdenTrabajoUpdateView(UpdateView):
     template_name = 'integrador/form-ordentrabajo-editar.html'
     success_url = reverse_lazy('ordentrabajo')
 
-def ventas(request):
-    
-    context = {}
 
-    return render(request,'integrador/ventas.html', context)
 def dashboard(request):
     
     context = {}

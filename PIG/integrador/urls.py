@@ -16,7 +16,6 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
     path('forms/', views.forms, name='forms'),
     path('tables/', views.tables, name='tables'),
-    path('ventas/', views.ventas, name='ventas'),
     path('charts/', views.charts, name='charts'),
     path('icons/', views.icons, name='icons'),
     path('ui-buttons/', views.ui_buttons, name='ui-buttons'),
