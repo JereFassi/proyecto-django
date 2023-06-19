@@ -23,6 +23,9 @@ from django.db.models import Q
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+
+
 
 """
     CRUD Cliente
@@ -203,23 +206,28 @@ class ServicioListView(ListView):
         context = {}
         return render(request,'integrador/form-domicilio.html', context)
 
-class OrdenTrabajoListView(ListView):
+class OrdenTrabajoListView(LoginRequiredMixin,ListView):
     model = OrdenTrabajo
     context_object_name = 'ordentrabajo'
     template_name= 'integrador/form-ordentrabajo.html'
     queryset= OrdenTrabajo.objects.all()
     ordering = ['tecnico_id']
+    login_url = 'acceso'
     
     
     def ordentrabajo(request):
         context = {}
         return render(request,'integrador/form-ordentrabajo.html', context)
 
-class OrdenTrabajoUpdateView(UpdateView):
+class OrdenTrabajoUpdateView(PermissionRequiredMixin,UpdateView):
     model = OrdenTrabajo
     form_class = OrdenTrabajoForm
     template_name = 'integrador/form-ordentrabajo-editar.html'
     success_url = reverse_lazy('ordentrabajo')
+    permission_required = ('integrador.change_ordentrabajo')
+    login_url = 'acceso'
+    redirect_field_name = 'redirect_to'
+    redirect_to='acceso'
 
 
 def dashboard(request):
