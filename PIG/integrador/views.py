@@ -6,6 +6,7 @@ from datetime import datetime
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 
 # app
 from integrador.forms import *
@@ -16,7 +17,7 @@ from .models import Cliente, Servicio, OrdenTrabajo
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 
@@ -166,10 +167,7 @@ def domicilio(request):
             domicilio.save()
 
             domicilio_form.save_m2m()
-
-            
-            
-            
+                   
             redirect('cliente_index')
         else:
             messages.warning(request,'Por favor revisa los datos ingresados')
@@ -219,15 +217,38 @@ class OrdenTrabajoListView(LoginRequiredMixin,ListView):
         context = {}
         return render(request,'integrador/form-ordentrabajo.html', context)
 
-class OrdenTrabajoUpdateView(PermissionRequiredMixin,UpdateView):
+class Redirect_PermissionRequiredMixin(object):
+    permission_required = None
+    url_redirect = None
+
+    def get_perms(self):
+        if isinstance(self.permission_required, str):
+            perms = (self.permission_required,)
+        else:
+            perms = self.permission_required
+        return perms
+    
+    def get_url_redirect(self):
+        if self.url_redirect is None:
+            return reverse_lazy('acceso')
+        return self.url_redirect
+    
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.has_perms(self.get_perms()):
+            return super().dispatch(request, *args, **kwargs)
+        return  HttpResponseRedirect(self.get_url_redirect())
+        
+
+class OrdenTrabajoUpdateView(Redirect_PermissionRequiredMixin,SuccessMessageMixin,UpdateView):
     model = OrdenTrabajo
     form_class = OrdenTrabajoForm
     template_name = 'integrador/form-ordentrabajo-editar.html'
     success_url = reverse_lazy('ordentrabajo')
+    success_message = "La orden de trabajo de instalación de fecha %(fecha_instalacion)s ha sido actualizada con éxito"
     permission_required = ('integrador.change_ordentrabajo')
     login_url = 'acceso'
-    redirect_field_name = 'redirect_to'
-    redirect_to='acceso'
+    
+    
 
 
 def dashboard(request):
