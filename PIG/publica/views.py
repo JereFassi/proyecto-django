@@ -34,3 +34,11 @@ def index(request):
     else:
         contacto_form = ContactoForm()
     return render(request,'publica/index.html', {'contacto_form': contacto_form})
+
+class G3LogoutView(LogoutView):
+    next_page = 'inicio'
+
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        messages.add_message(request, messages.INFO, 'Se ha cerrado la session correctamente.')
+        return response
