@@ -5,6 +5,13 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 
+PROVINCIA=[
+    (1, 'Buenos Aires'),
+    (2, 'Córdoba'),
+    (3, 'Santa Fe'),
+    (4, 'C.A.B.A.'),
+]
+
 class Usuario(AbstractUser):
     pass
 
@@ -19,11 +26,8 @@ class Persona(models.Model):
     nombre = models.CharField(max_length=100,verbose_name='Nombre')
     apellido = models.CharField(max_length=100,verbose_name='Apellido')
     #domicilio = models.CharField(max_length=100,verbose_name='Domicilio')
-    DOC_TIPO = [
-        (1,'DNI'),
-        (2,'CUIT'),
-        (3,'CUIL'),]
-    tipo_dni = models.IntegerField(choices=DOC_TIPO, verbose_name='Tipo de documento')
+    # tipo_dni = models.IntegerField(choices=DOC_TIPO, verbose_name='Tipo de documento')
+    tipo_dni = models.IntegerField(verbose_name='Tipo de documento')
     dni = models.IntegerField(verbose_name="Documento")
     email = models.EmailField(max_length=150)
     baja=models.BooleanField(default=False)
@@ -39,13 +43,6 @@ class IntegerRangeField(models.IntegerField):
         defaults = {'min_value': self.min_value, 'max_value':self.max_value}
         defaults.update(kwargs)
         return super(IntegerRangeField, self).formfield(**defaults)
-
-PROVINCIA=[
-        (1, 'Buenos Aires'),
-        (2, 'Córdoba'),
-        (3, 'Santa Fe'),
-        (4, 'C.A.B.A.'),
-    ]
 
 class Empleado(Persona):
     legajo = models.IntegerField(verbose_name='Legajo')
@@ -123,7 +120,7 @@ class Domicilio(models.Model):
     direccion = models.CharField(max_length=100, verbose_name='Domicilio')
     codigo_postal = models.CharField(max_length=20, verbose_name='Código Postal')
     localidad = models.CharField(max_length=50, verbose_name='Localidad')
-    provincia =models.IntegerField(choices=PROVINCIA)
+    provincia =models.IntegerField(choices=PROVINCIA, verbose_name='Provincia')
     latitud=models.FloatField(max_length=20, verbose_name='Coordenada Latitud', blank=True, null=True)
     longitud=models.FloatField(max_length=20, verbose_name='Coordenada Longitud', blank=True, null=True)
 
@@ -134,11 +131,11 @@ class OrdenTrabajo(models.Model):
     domicilio_id=models.ForeignKey(Domicilio, on_delete=models.CASCADE, verbose_name='Domicilio de instalación')
     tecnico_id=models.ForeignKey(Tecnico, on_delete=models.CASCADE, verbose_name='Técnico Asignado')
     fecha_instalacion=models.DateField(verbose_name='Fecha de Instalación')
-    ESTADO= [
+    ESTADO = [
         (1,'Pendiente'),
         (2,'Realizada'),
         (3,'Cancelada'),
-        ]
+    ]
     estado_ot=models.IntegerField(choices=ESTADO, verbose_name='Estado de la Orden de Trabajo')
 
     def __str__(self):

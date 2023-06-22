@@ -9,23 +9,21 @@
 <div class="content">
     <div class="container">
         <div class="page-title">
-            <h1 class="mt-4">Clientes y Servicios</h1>
-        
-<ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item"><a href="{% url 'cliente_index' %}">Clientes</a></li>
-    <li class="breadcrumb-item active">Editar Cliente</li>
-</ol>
+            <h1 class="mt-4">Clientes y Servicios</h1>        
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="{% url 'cliente_index' %}">Clientes</a></li>
+                <li class="breadcrumb-item active">Editar Cliente</li>
+            </ol>
         </div>
-    </div>
-</div>
-
-<div class="card">
-    <div class="card-header">Edicion de base de clientes</div>
-    <div class="card-body">
-        <form action="" method="post">
-            {% csrf_token %}
-            {% include 'integrador/cliente/form.html' %}
-        </form>
+        <div class="card">
+            <div class="card-header">Edicion de base de clientes</div>
+            <div class="card-body">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {% include 'integrador/cliente/form.html' %}
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

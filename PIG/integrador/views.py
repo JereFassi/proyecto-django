@@ -21,11 +21,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 
-
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-
 
 
 """
@@ -183,13 +181,17 @@ def domicilio(request):
 
     return render(request,'integrador/form-domicilio.html', context)
 
+def crear_orden():
+
+    nueva_orden = OrdenTrabajo()
+
+    pass
 
 def geo_localizacion(request):
     
     context = {}
 
     return render(request,'integrador/form-geo-localizacion.html', context)
-
 
 
 class ServicioListView(ListView):
@@ -199,7 +201,6 @@ class ServicioListView(ListView):
     queryset= Servicio.objects.all()
     ordering = ['descripcion']
     
-
     def servicio(request):
         context = {}
         return render(request,'integrador/form-domicilio.html', context)
@@ -247,132 +248,3 @@ class OrdenTrabajoUpdateView(Redirect_PermissionRequiredMixin,SuccessMessageMixi
     success_message = "La orden de trabajo de instalación de fecha %(fecha_instalacion)s ha sido actualizada con éxito"
     permission_required = ('integrador.change_ordentrabajo')
     login_url = 'acceso'
-    
-    
-
-
-def dashboard(request):
-    
-    context = {}
-
-    return render(request,'integrador/dashboard.html', context)
-
-def forms(request):
-    
-    context = {}
-
-    return render(request,'integrador/forms.html', context)
-
-def tables(request):
-    
-    context = {}
-
-    return render(request,'integrador/tables.html', context)
-
-def charts(request):
-    
-    context = {}
-
-    return render(request,'integrador/charts.html', context)
-
-def icons(request):
-    
-    context = {}
-
-    return render(request,'integrador/icons.html', context)
-
-def ui_buttons(request):
-    
-    context = {}
-
-    return render(request,'integrador/ui-buttons.html', context)
-
-def ui_badges(request):
-    
-    context = {}
-
-    return render(request,'integrador/ui-badges.html', context)
-
-def ui_cards(request):
-    
-    context = {}
-
-    return render(request,'integrador/ui-cards.html', context)
-
-def ui_alerts(request):
-    
-    context = {}
-
-    return render(request,'integrador/ui-alerts.html', context)
-
-def ui_tabs(request):
-    
-    context = {}
-
-    return render(request,'integrador/ui-tabs.html', context)
-
-def ui_date_time_picker(request):
-    
-    context = {}
-
-    return render(request,'integrador/ui-date-time-picker.html', context)
-
-def login(request):
-
-    context = {}
-
-    return render(request,'integrador/login.html', context)
-
-def signup(request):
-
-    context = {}
-
-    return render(request,'integrador/signup.html', context)
-
-def forgot_password(request):
-
-    context = {}
-
-    return render(request,'integrador/forgot-password.html', context)
-
-def blank(request):
-
-    context = {}
-
-    return render(request,'integrador/blank.html', context)
-
-def error_404(request):
-
-    context = {}
-
-    return render(request,'integrador/error-404.html', context)
-
-def error_500(request):
-
-    context = {}
-
-    return render(request,'integrador/error-500.html', context)
-
-def users(request):
-
-    context = {}
-
-    return render(request,'integrador/users.html', context)
-
-def roles(request):
-
-    context = {}
-
-    return render(request,'integrador/roles.html', context)
-
-def permissions(request):
-
-    context = {}
-
-    return render(request,'integrador/permissions.html', context)
-
-def settings(request):
-
-    context = {}
-
-    return render(request,'integrador/settings.html', context)
