@@ -12,7 +12,7 @@ class ClienteForm(forms.ModelForm):
         widgets = {
             'nombre': forms.TextInput(attrs={'class':'form-control','placeholder':'Nombre Cliente'}),
             'apellido': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Apellido Cliente'}),
-            # 'tipo_dni': forms.NumberInput(attrs={'class':'form-select'}),
+            'tipo_dni': forms.NumberInput(attrs={'class':'form-select'}),
             'dni': forms.NumberInput(attrs={'class':'form-control'}),
             'email': forms.EmailInput(attrs={'class':'form-control'}),
             'fecha_alta': forms.DateInput(attrs={'class':'form-control','type':'date'}),
@@ -29,7 +29,7 @@ class ClienteForm(forms.ModelForm):
     ]
 
     tipo_dni = forms.ChoiceField(
-        label = 'Tipo DNI',
+        label = 'Tipo de Documento',
         choices = DOC_TIPO,
         initial = 1,
         widget = forms.Select(attrs={'class':'form-select'})

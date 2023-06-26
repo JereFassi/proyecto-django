@@ -47,8 +47,6 @@
                         <tr>
                             <th>Nombre</th>
                             <th>Apellido</th>
-                            <th>Telefono</th>
-                            <th>Baja</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -57,8 +55,6 @@
                         <tr>
                         <td>{{cliente.nombre}}</td>
                         <td>{{cliente.apellido}}</td>
-                        <td>{{cliente.telefono}}</td>
-                        <td>{{cliente.baja}}</td>
                         <td>
                             <a href="{% url 'cliente_editar' cliente.id %}" title="Editar" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
                             <a href="{% url 'cliente_eliminar' cliente.id %}" title="Eliminar" class="btn btn-danger"><i class="fas fa-trash"></i></a>
