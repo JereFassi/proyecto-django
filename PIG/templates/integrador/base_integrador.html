@@ -38,6 +38,10 @@
                 <li>
                     <a href="{%url 'ordentrabajo' %}"><i class="fas fa-table"></i> Módulo Instalaciones </a>
                 </li>
+                <li>
+                    {% comment %} <a href="{%url 'admin' %}"><i class="fas fa-table"></i> Administrador </a> {% endcomment %}
+                    <a href="/admin"><i class="fas fa-table"></i> Administrador </a>
+                </li>
             </ul>
         </nav>
    
@@ -60,7 +64,7 @@
                                         <li><a href="" class="dropdown-item"><i class="fas fa-envelope"></i> Mensajes</a></li>
                                         <li><a href="" class="dropdown-item"><i class="fas fa-cog"></i> Configuración</a></li>
                                         <div class="dropdown-divider"></div>
-                                        <li><a href="{% url 'acceso' %}" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                                        <li><a href="{% url 'logout' %}" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                                     </ul>
                                 </div>
                             </div>
