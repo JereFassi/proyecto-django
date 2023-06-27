@@ -19,5 +19,6 @@ urlpatterns = [
     path('ordentrabajoview/', views.OrdenTrabajoListView.as_view(),name='ordentrabajo'),
     path('ordentrabajoedit/<int:pk>', views.OrdenTrabajoUpdateView.as_view(),name='ordentrabajoedit'),
 
+    
 ]
 
