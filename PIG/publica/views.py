@@ -40,5 +40,5 @@ class G3LogoutView(LogoutView):
 
     def dispatch(self, request, *args, **kwargs):
         response = super().dispatch(request, *args, **kwargs)
-        messages.add_message(request, messages.INFO, 'Se ha cerrado la session correctamente.')
+        # messages.add_message(request, messages.INFO, 'Se ha cerrado la session correctamente.')
         return response

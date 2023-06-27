@@ -13,7 +13,7 @@ from integrador.forms import *
 from integrador.communications import *
 from integrador.maps import *
 from .forms import ClienteForm
-from .models import Cliente, Servicio, OrdenTrabajo
+from .models import Cliente, Servicio, OrdenTrabajo, Tecnico
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -165,6 +165,8 @@ def domicilio(request):
             domicilio.save()
 
             domicilio_form.save_m2m()
+
+            crear_orden(domicilio)
                    
             redirect('cliente_index')
         else:
@@ -181,11 +183,18 @@ def domicilio(request):
 
     return render(request,'integrador/form-domicilio.html', context)
 
-def crear_orden():
+def crear_orden(domicilio):
+
+    tecnico = Tecnico.objects.get(pk = 2)
 
     nueva_orden = OrdenTrabajo()
+    nueva_orden.domicilio_id = domicilio
+    nueva_orden.fecha_instalacion = datetime.now()
+    nueva_orden.estado_ot = 1
+    nueva_orden.tecnico_id = tecnico
+    nueva_orden.save()
 
-    pass
+    return
 
 def geo_localizacion(request):
     

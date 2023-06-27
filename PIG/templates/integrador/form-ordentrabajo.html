@@ -29,30 +29,37 @@
                         <table class="table">
                         <thead>
                             <tr>
-                                <th>Técnico / Domicilio / Estado: 1:Pendiente; 2:Realizada; 3:Cancelada</th>
+                                <th>Id</th>
+                                <th>Técnico</th>
+                                <th>Domicilio</th>
+                                <th>Fecha Instalación</th>
+                                <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <tr>
                             {% for ordentrabajo in ordentrabajo %}
-                            {% if ordentrabajo.estado_ot == 1 %}
-                            <tr>
-                                <td style="color:red;">{{ordentrabajo}}</td>
-                                <td>
-                                    <a href="{% url 'ordentrabajoedit' ordentrabajo.id %}" title="Editar" class="btn btn-warning"><i
-                                            class="fas fa-pencil-alt"></i></a>
-                                </td>
+                                {% if ordentrabajo.estado_ot == 1 %}
+                                    {% comment %} <td style="color:red;">{{ordentrabajo}}</td> {% endcomment %}
+                                    <td>{{ordentrabajo.id}}</td>
+                                    <td>{{ordentrabajo.tecnico_id}}</td>
+                                    <td>{{ordentrabajo.domicilio_id}}</td>
+                                    <td>{{ordentrabajo.fecha_instalacion}}</td>
+                                    <td>{{ordentrabajo.estado_ot}}</td>
+                                    <td>
+                                        <a href="{% url 'ordentrabajoedit' ordentrabajo.id %}" title="Editar" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
+                                    </td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td style="color:rgb(29, 28, 28);">{{ordentrabajo}}</td>
+                                    <td>
+                                        <a href="{% url 'ordentrabajoedit' ordentrabajo.id %}" title="Editar" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
+                                    </td>
+                                    {% endif %}
+                                {% endfor %}
                             </tr>
-                            {% else %}
-                            <tr>
-                                <td style="color:rgb(29, 28, 28);">{{ordentrabajo}}</td>
-                                <td>
-                                    <a href="{% url 'ordentrabajoedit' ordentrabajo.id %}" title="Editar" class="btn btn-warning"><i
-                                            class="fas fa-pencil-alt"></i></a>
-                                </td>
-                            </tr>
-                            {% endif %}
-                            {% endfor %}
                         </tbody>
                         </table>
                         
